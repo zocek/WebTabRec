@@ -23,6 +23,7 @@ const EXPLICIT_DENYLIST_PREFIXES = [
   '.github/',
   '.idea/',
   'docs/',
+  'site/',
   'store/',
   'scripts/',
   'tests/',

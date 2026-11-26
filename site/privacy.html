@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Privacy Policy — WebTabRec</title>
+  <meta name="description" content="WebTabRec Privacy Policy (English & Czech): 100% local single-tab audio and video recording for Chrome with zero external network requests, no cloud uploads, and full Chrome Web Store Limited Use compliance.">
+  <link rel="canonical" href="https://zocek.github.io/WebTabRec/privacy.html">
+  <style>
+    :root {
+      --bg-light: #f8fafc;
+      --bg-dark: #0f172a;
+      --surface-light: #ffffff;
+      --surface-dark: #1e293b;
+      --surface-muted-light: #f1f5f9;
+      --surface-muted-dark: #162032;
+      --border-light: #e2e8f0;
+      --border-dark: #334155;
+      --text-light: #0f172a;
+      --text-dark: #f1f5f9;
+      --text-muted-light: #475569;
+      --text-muted-dark: #94a3b8;
+      --brand-light: #dc2626;
+      --brand-dark: #f87171;
+      --link-light: #1d4ed8;
+      --link-dark: #60a5fa;
+      --ok-bg-light: #dcfce7;
+      --ok-bg-dark: #064e3b;
+      --ok-text-light: #166534;
+      --ok-text-dark: #6ee7b7;
+      --code-bg-light: #e2e8f0;
+      --code-bg-dark: #0b1220;
+
+      --bg: var(--bg-light);
+      --surface: var(--surface-light);
+      --surface-muted: var(--surface-muted-light);
+      --border: var(--border-light);
+      --text: var(--text-light);
+      --text-muted: var(--text-muted-light);
+      --brand: var(--brand-light);
+      --link: var(--link-light);
+      --ok-bg: var(--ok-bg-light);
+      --ok-text: var(--ok-text-light);
+      --code-bg: var(--code-bg-light);
+
+      color-scheme: light dark;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: var(--bg-dark);
+        --surface: var(--surface-dark);
+        --surface-muted: var(--surface-muted-dark);
+        --border: var(--border-dark);
+        --text: var(--text-dark);
+        --text-muted: var(--text-muted-dark);
+        --brand: var(--brand-dark);
+        --link: var(--link-dark);
+        --ok-bg: var(--ok-bg-dark);
+        --ok-text: var(--ok-text-dark);
+        --code-bg: var(--code-bg-dark);
+      }
+    }
+
+    @supports (color: light-dark(white, black)) {
+      :root {
+        --bg: light-dark(var(--bg-light), var(--bg-dark));
+        --surface: light-dark(var(--surface-light), var(--surface-dark));
+        --surface-muted: light-dark(var(--surface-muted-light), var(--surface-muted-dark));
+        --border: light-dark(var(--border-light), var(--border-dark));
+        --text: light-dark(var(--text-light), var(--text-dark));
+        --text-muted: light-dark(var(--text-muted-light), var(--text-muted-dark));
+        --brand: light-dark(var(--brand-light), var(--brand-dark));
+        --link: light-dark(var(--link-light), var(--link-dark));
+        --ok-bg: light-dark(var(--ok-bg-light), var(--ok-bg-dark));
+        --ok-text: light-dark(var(--ok-text-light), var(--ok-text-dark));
+        --code-bg: light-dark(var(--code-bg-light), var(--code-bg-dark));
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.65;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 840px;
+      margin: 0 auto;
+      padding: 24px 20px 64px;
+    }
+
+    header.topbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 20px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 1.15rem;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .pill:hover, .pill:focus-visible {
+      border-color: var(--link);
+      color: var(--link);
+      outline: none;
+    }
+
+    .hero {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(1.6rem, 3vw, 2rem);
+      line-height: 1.25;
+    }
+
+    .meta {
+      margin: 0 0 16px;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 11px;
+      border-radius: 999px;
+      background: var(--ok-bg);
+      color: var(--ok-text);
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 26px;
+      margin-bottom: 24px;
+    }
+
+    .card h2 {
+      margin: 0 0 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      font-size: 1.4rem;
+    }
+
+    .card h3 {
+      margin: 22px 0 8px;
+      font-size: 1.06rem;
+    }
+
+    p { margin: 0 0 12px; }
+    ul { margin: 0 0 14px; padding-left: 22px; }
+    li { margin-bottom: 8px; }
+
+    a { color: var(--link); }
+    a:focus-visible {
+      outline: 2px solid var(--link);
+      outline-offset: 2px;
+      border-radius: 3px;
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 0.88em;
+      background: var(--code-bg);
+      padding: 1px 6px;
+      border-radius: 5px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 8px;
+      font-size: 0.93rem;
+    }
+
+    th, td {
+      text-align: left;
+      vertical-align: top;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background: var(--surface-muted);
+      font-weight: 600;
+    }
+
+    footer {
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="topbar">
+      <a class="brand" href="./">
+        <svg width="28" height="28" viewBox="0 0 128 128" aria-hidden="true">
+          <rect x="16" y="16" width="96" height="96" rx="22" fill="#dc2626"/>
+          <circle cx="64" cy="64" r="24" fill="#ffffff" fill-opacity="0.22"/>
+          <circle cx="64" cy="64" r="14" fill="#ffffff"/>
+        </svg>
+        <span>WebTabRec</span>
+      </a>
+      <nav class="nav-links" aria-label="Page navigation">
+        <a class="pill" href="#english">English</a>
+        <a class="pill" href="#cestina">Čeština</a>
+        <a class="pill" href="./">Home</a>
+        <a class="pill" href="https://github.com/zocek/WebTabRec">GitHub</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Privacy Policy — WebTabRec</h1>
+        <p class="meta">Version 1.0 · Effective date: 2026-11-25 · MIT Open Source</p>
+        <div class="badges">
+          <span class="badge">100% Local Processing</span>
+          <span class="badge">0 External Network Requests</span>
+          <span class="badge">No Cloud · No Accounts · No Tracking</span>
+          <span class="badge">Incognito Disabled</span>
+        </div>
+      </section>
+
+      <article id="english" class="card" lang="en">
+        <h2>English</h2>
+        <p><strong>WebTabRec</strong> is a free, open-source browser extension designed with <strong>privacy by design</strong>. It records audio, video, or both from a single active browser tab <strong>100% locally on your device</strong>.</p>
+
+        <h3>1. Data Collection, Transmission &amp; Limited Use</h3>
+        <ul>
+          <li><strong>The developer collects, receives, transmits, or sells zero personal data.</strong></li>
+          <li>WebTabRec makes <strong>zero external network requests</strong>. No recordings, tab titles, URLs, or settings ever leave your device.</li>
+          <li>WebTabRec does <strong>not</strong> use analytics, telemetry, cookies, ads, remote code, or third-party SDKs.</li>
+          <li><strong>Chrome Web Store User Data Policy (Limited Use):</strong> The use of information accessed through browser APIs strictly adheres to the <a href="https://developer.chrome.com/docs/webstore/program-policies/user-data-faq">Chrome Web Store User Data Policy</a>, including the <strong>Limited Use</strong> requirements. All accessed data is processed exclusively on the user's local device solely to provide the user-facing single-tab recording feature, and is never transferred to third parties, used for advertising, or used for creditworthiness or lending decisions.</li>
+        </ul>
+
+        <h3>2. Local Processing &amp; Transient Storage on Your Device</h3>
+        <p>To perform its core function locally inside your browser, WebTabRec handles the following data <strong>strictly on your device</strong>:</p>
+        <ul>
+          <li><strong>Tab media stream (audio/video):</strong> Captured only when you explicitly start a recording, processed locally via <code>MediaRecorder</code>, <code>WebCodecs</code> (<code>VideoEncoder</code>/<code>AudioEncoder</code>), a local <code>AudioWorklet</code> + pure-JS MP3 Web Worker, and <code>AudioContext</code> in an Offscreen Document, and buffered as temporary chunks in local <code>IndexedDB</code> (<code>webtabrec_db</code>) to prevent memory exhaustion.</li>
+          <li><strong>Transient viewport snapshot (region selection only):</strong> When you explicitly select <em>Select page block (auto)…</em> or <em>Select region manually (loupe)…</em> in Video or Both mode, a single in-memory snapshot of the visible tab (<code>captureVisibleTab</code>) is used solely to power the circular pixel magnifier loupe. It is <strong>never saved to disk</strong> and is discarded immediately once you confirm or cancel the selection.</li>
+          <li><strong>Tab title:</strong> Read via <code>activeTab</code> upon user action solely to generate a readable local download filename and display the recorded tab name inside the popup / recovery banner. Stored temporarily in <code>chrome.storage.session</code> and <code>IndexedDB</code> only for the lifetime of the local recording session.</li>
+          <li><strong>Tab URL check:</strong> Inspected transiently in memory upon user action solely to verify whether the current page is recordable (e.g., not <code>chrome://</code> or Chrome Web Store). Tab URLs are <strong>never stored</strong> to disk or transmitted anywhere.</li>
+          <li><strong>User preferences:</strong> UI language, preferred recording mode, format per mode, video quality preset (<code>videoQuality</code>), audio passthrough setting (<code>keepAudio</code>), and region picker preferences (<code>regionPickerMode</code>, <code>regionSmartHintSeen</code>) are saved locally in <code>chrome.storage.local</code>.</li>
+        </ul>
+
+        <h3>3. Retention, Incognito &amp; Automatic Deletion</h3>
+        <ul>
+          <li>After you stop recording and initiate the local file download, temporary chunks remain in local <code>IndexedDB</code> briefly (so you can click <em>Download again</em> if a download dialog was dismissed) until you dismiss the confirmation, start a new recording, or until retention expires.</li>
+          <li>Abandoned or unconfirmed local sessions older than <strong>24 hours</strong> (measured from the last recorded write/completion timestamp) are automatically deleted the next time the browser or extension Service Worker starts.</li>
+          <li><strong>Incognito mode disabled (<code>"incognito": "not_allowed"</code>):</strong> WebTabRec explicitly disables execution in Chrome Incognito windows in <code>manifest.json</code> so private browsing sessions never write temporary media chunks or tab titles into the regular browser profile's local <code>IndexedDB</code>.</li>
+        </ul>
+
+        <h3>4. Browser Permissions Explained</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Permission</th>
+              <th>Purpose (strictly local)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>tabCapture</code></td>
+              <td>Obtains a media stream ID for the currently active tab strictly upon explicit user invocation.</td>
+            </tr>
+            <tr>
+              <td><code>offscreen</code></td>
+              <td>Runs <code>MediaRecorder</code>, <code>WebCodecs</code>, MP3/WAV encoding, audio passthrough, and local export in a background Offscreen Document so recording continues when the popup closes or you switch tabs.</td>
+            </tr>
+            <tr>
+              <td><code>activeTab</code></td>
+              <td>Reads the active tab's title (for filename generation) and validates that the URL is recordable strictly upon user invocation — without requesting broad host permissions.</td>
+            </tr>
+            <tr>
+              <td><code>storage</code></td>
+              <td>Stores local user preferences (<code>chrome.storage.local</code>) and active session state (<code>chrome.storage.session</code>).</td>
+            </tr>
+            <tr>
+              <td><code>scripting</code></td>
+              <td>Injects an isolated closed Shadow DOM region-selection overlay with a pixel magnifier strictly when you choose region selection on the active tab (via <code>activeTab</code>, never automatically or on background tabs).</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>5. Open Source Verification &amp; Contact</h3>
+        <ul>
+          <li>WebTabRec is open-source under the MIT License; anyone can inspect the complete source code at <a href="https://github.com/zocek/WebTabRec">https://github.com/zocek/WebTabRec</a>.</li>
+          <li>For privacy inquiries, open an issue at <a href="https://github.com/zocek/WebTabRec/issues">https://github.com/zocek/WebTabRec/issues</a> or contact the maintainer via the verified developer contact email in the Chrome Web Store listing.</li>
+        </ul>
+      </article>
+
+      <article id="cestina" class="card" lang="cs">
+        <h2>Čeština</h2>
+        <p><strong>WebTabRec</strong> je bezplatné open-source rozšíření navržené podle principu <strong>soukromí od základu (Privacy by Design)</strong>. Nahrává zvuk, obraz nebo obojí z jedné aktivní karty prohlížeče <strong>100 % lokálně na vašem zařízení</strong>.</p>
+
+        <h3>1. Sběr, přenos dat a pravidla Limited Use</h3>
+        <ul>
+          <li><strong>Vývojář neshromažďuje, nepřijímá, nepřenáší ani neprodává žádná osobní data.</strong></li>
+          <li>WebTabRec provádí <strong>nula externích síťových požadavků</strong>. Žádné nahrávky, názvy karet, URL ani nastavení nikdy neopouštějí vaše zařízení.</li>
+          <li>Rozšíření <strong>neobsahuje</strong> žádnou analytiku, telemetrii, reklamní skripty, vzdálený kód ani externí SDK.</li>
+          <li><strong>Soulad se zásadami Chrome Web Store User Data Policy (Limited Use):</strong> Zpracování údajů zpřístupněných přes rozhraní prohlížeče plně odpovídá <a href="https://developer.chrome.com/docs/webstore/program-policies/user-data-faq">Chrome Web Store User Data Policy</a> včetně požadavků <strong>Limited Use</strong>. Veškerá data jsou zpracovávána výhradně lokálně na zařízení uživatele pouze pro poskytnutí funkce nahrávání jedné karty a nejsou nikdy předávána třetím stranám ani využívána pro reklamu či hodnocení bonity.</li>
+        </ul>
+
+        <h3>2. Lokální zpracování a dočasné uložení v prohlížeči</h3>
+        <p>Pro splnění své jediné funkce zpracovává WebTabRec následující údaje <strong>výhradně lokálně na vašem zařízení</strong>:</p>
+        <ul>
+          <li><strong>Mediální stream karty (zvuk/obraz):</strong> Zachytává se pouze na váš výslovný pokyn, zpracovává se lokálně v Offscreen dokumentu přes <code>MediaRecorder</code>, <code>WebCodecs</code> (<code>VideoEncoder</code>/<code>AudioEncoder</code>), lokální <code>AudioWorklet</code> + pure-JS MP3 Web Worker a <code>AudioContext</code> a průběžně se ukládá jako dočasné bloky do lokální <code>IndexedDB</code> (<code>webtabrec_db</code>), aby prohlížeči nedošla operační paměť.</li>
+          <li><strong>Dočasný snímek viewportu (pouze při výběru výřezu):</strong> Pokud v režimu Video nebo Obojí zvolíte <em>Vybrat blok stránky (automaticky)…</em> nebo <em>Vybrat výřez ručně (lupa)…</em>, pořídí se jednorázový snímek viditelné plochy karty (<code>captureVisibleTab</code>) výhradně v operační paměti pro zobrazení kruhové pixelové lupy. Snímek se <strong>nikdy neukládá na disk</strong> a ihned po potvrzení či zrušení výběru se uvolní.</li>
+          <li><strong>Titulek karty:</strong> Načítá se přes <code>activeTab</code> při spuštění záznamu pouze pro vytvoření čitelného názvu souboru a zobrazení názvu nahrávané karty v popupu / liště obnovy. Dočasně je uložen v <code>chrome.storage.session</code> a <code>IndexedDB</code> jen po dobu života lokální relace.</li>
+          <li><strong>Kontrola URL karty:</strong> Kontroluje se pouze jednorázově v operační paměti při startu záznamu za účelem ověření, zda stránku lze nahrávat (není <code>chrome://</code> nebo Chrome Web Store). Adresy URL se <strong>nikam neukládají</strong> ani neodesílají.</li>
+          <li><strong>Uživatelské předvolby:</strong> Zvolený jazyk rozhraní, režim, formát pro každý režim, kvalita videa (<code>videoQuality</code>), nastavení poslechu (<code>keepAudio</code>) a předvolby výběru výřezu (<code>regionPickerMode</code>, <code>regionSmartHintSeen</code>) se ukládají lokálně do <code>chrome.storage.local</code>.</li>
+        </ul>
+
+        <h3>3. Doba uchování, anonymní režim a automatické mazání</h3>
+        <ul>
+          <li>Po zastavení záznamu a zahájení stažení zůstanou dočasné bloky v lokální <code>IndexedDB</code> k dispozici pro případné opakované stažení (<em>Stáhnout znovu</em>), dokud potvrzení nezavřete, nespustíte novou nahrávku nebo nevyprší doba uchování.</li>
+          <li>Opuštěné či nepotvrzené lokální relace starší než <strong>24 hodin</strong> (od posledního zápisu / ukončení relace) se automaticky vymažou při dalším spuštění prohlížeče nebo Service Workeru rozšíření.</li>
+          <li><strong>Anonymní režim vypnut (<code>"incognito": "not_allowed"</code>):</strong> WebTabRec v <code>manifest.json</code> výslovně zakazuje spuštění v anonymních oknech Chrome, aby se dočasné bloky či titulky soukromých karet nikdy nezapisovaly do lokální <code>IndexedDB</code> běžného profilu.</li>
+        </ul>
+
+        <h3>4. Přehled oprávnění prohlížeče</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Oprávnění</th>
+              <th>Účel (výhradně lokální)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>tabCapture</code></td>
+              <td>Získá stream zvuku/obrazu aktuálně aktivní karty výhradně na přímý pokyn uživatele.</td>
+            </tr>
+            <tr>
+              <td><code>offscreen</code></td>
+              <td>Zajišťuje spolehlivý běh záznamu, poslechu zvuku a lokálního exportu na pozadí i po zavření popup okna.</td>
+            </tr>
+            <tr>
+              <td><code>activeTab</code></td>
+              <td>Načte titulek aktivní karty (pro název souboru) a ověří podporovanou adresu bez žádosti o široká oprávnění k webům.</td>
+            </tr>
+            <tr>
+              <td><code>storage</code></td>
+              <td>Ukládá lokální nastavení (<code>chrome.storage.local</code>) a stav probíhajícího záznamu (<code>chrome.storage.session</code>).</td>
+            </tr>
+            <tr>
+              <td><code>scripting</code></td>
+              <td>Výhradně na vaše vyžádání při výběru výřezu vloží do aktivní karty izolovaný Shadow DOM výběrový překryv s pixelovou lupou (přes <code>activeTab</code>, nikdy automaticky ani na kartách na pozadí).</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>5. Ověření open-source kódu a kontakt</h3>
+        <ul>
+          <li>WebTabRec je open-source pod licencí MIT — kompletní zdrojový kód je veřejně dostupný k auditu na <a href="https://github.com/zocek/WebTabRec">https://github.com/zocek/WebTabRec</a>.</li>
+          <li>Dotazy k ochraně soukromí lze nahlásit přes <a href="https://github.com/zocek/WebTabRec/issues">GitHub Issues</a> nebo na ověřený kontaktní e-mail správce uvedený na kartě rozšíření v Chrome Web Store.</li>
+        </ul>
+      </article>
+    </main>
+
+    <footer>
+      <span>WebTabRec · MIT License · Petr Žoček</span>
+      <span><a href="./">Overview</a> · <a href="https://github.com/zocek/WebTabRec">Source on GitHub</a> · <a href="https://github.com/zocek/WebTabRec/blob/main/SECURITY.md">Security</a></span>
+    </footer>
+  </div>
+</body>
+</html>

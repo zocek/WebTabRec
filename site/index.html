@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>WebTabRec — Local Tab Audio &amp; Video Recorder for Chrome</title>
+  <meta name="description" content="Free, MIT-licensed open-source Manifest V3 Chrome extension to record audio (MP3/WebM/WAV), video (MP4/WebM), or both from a single browser tab 100% locally with zero external network requests.">
+  <link rel="canonical" href="https://zocek.github.io/WebTabRec/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "WebTabRec",
+    "url": "https://zocek.github.io/WebTabRec/",
+    "downloadUrl": "https://chromewebstore.google.com/detail/webtabrec/opfnolbemcpkdkeoalccghehpghadnmf",
+    "sameAs": [
+      "https://github.com/zocek/WebTabRec",
+      "https://chromewebstore.google.com/detail/webtabrec/opfnolbemcpkdkeoalccghehpghadnmf"
+    ],
+    "author": {
+      "@type": "Person",
+      "name": "Petr Žoček"
+    },
+    "applicationCategory": "BrowserApplication",
+    "applicationSubCategory": "Tab Audio and Video Recorder",
+    "operatingSystem": "Windows, macOS, Linux, ChromeOS",
+    "browserRequirements": "Google Chrome 116+",
+    "softwareVersion": "1.0.0",
+    "license": "https://opensource.org/licenses/MIT",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "Free, MIT-licensed open-source Manifest V3 browser extension for recording audio (MP3/WebM/WAV), video (MP4/WebM), or both from a single Chrome tab 100% locally with zero external network requests.",
+    "inLanguage": ["en", "cs"]
+  }
+  </script>
+  <style>
+    :root {
+      --bg-light: #f8fafc;
+      --bg-dark: #0f172a;
+      --surface-light: #ffffff;
+      --surface-dark: #1e293b;
+      --border-light: #e2e8f0;
+      --border-dark: #334155;
+      --text-light: #0f172a;
+      --text-dark: #f1f5f9;
+      --text-muted-light: #475569;
+      --text-muted-dark: #94a3b8;
+      --brand-light: #dc2626;
+      --brand-dark: #ef4444;
+      --link-light: #1d4ed8;
+      --link-dark: #60a5fa;
+      --ok-bg-light: #dcfce7;
+      --ok-bg-dark: #064e3b;
+      --ok-text-light: #166534;
+      --ok-text-dark: #6ee7b7;
+
+      --bg: var(--bg-light);
+      --surface: var(--surface-light);
+      --border: var(--border-light);
+      --text: var(--text-light);
+      --text-muted: var(--text-muted-light);
+      --brand: var(--brand-light);
+      --link: var(--link-light);
+      --ok-bg: var(--ok-bg-light);
+      --ok-text: var(--ok-text-light);
+
+      color-scheme: light dark;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: var(--bg-dark);
+        --surface: var(--surface-dark);
+        --border: var(--border-dark);
+        --text: var(--text-dark);
+        --text-muted: var(--text-muted-dark);
+        --brand: var(--brand-dark);
+        --link: var(--link-dark);
+        --ok-bg: var(--ok-bg-dark);
+        --ok-text: var(--ok-text-dark);
+      }
+    }
+
+    @supports (color: light-dark(white, black)) {
+      :root {
+        --bg: light-dark(var(--bg-light), var(--bg-dark));
+        --surface: light-dark(var(--surface-light), var(--surface-dark));
+        --border: light-dark(var(--border-light), var(--border-dark));
+        --text: light-dark(var(--text-light), var(--text-dark));
+        --text-muted: light-dark(var(--text-muted-light), var(--text-muted-dark));
+        --brand: light-dark(var(--brand-light), var(--brand-dark));
+        --link: light-dark(var(--link-light), var(--link-dark));
+        --ok-bg: light-dark(var(--ok-bg-light), var(--ok-bg-dark));
+        --ok-text: light-dark(var(--ok-text-light), var(--ok-text-dark));
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px 20px 64px;
+    }
+
+    header.topbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 20px;
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 13px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .pill:hover, .pill:focus-visible {
+      border-color: var(--link);
+      color: var(--link);
+      outline: none;
+    }
+
+    .hero {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 32px 28px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: clamp(1.8rem, 3.6vw, 2.35rem);
+      line-height: 1.2;
+    }
+
+    .lead {
+      margin: 0 0 22px;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 68ch;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .btn-primary {
+      background: var(--brand);
+      color: #ffffff;
+    }
+
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .badge {
+      display: inline-flex;
+      padding: 4px 11px;
+      border-radius: 999px;
+      background: var(--ok-bg);
+      color: var(--ok-text);
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin: 0 6px 6px 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.94rem;
+    }
+
+    footer {
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    footer a { color: var(--link); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="topbar">
+      <a class="brand" href="./">
+        <svg width="28" height="28" viewBox="0 0 128 128" aria-hidden="true">
+          <rect x="16" y="16" width="96" height="96" rx="22" fill="#dc2626"/>
+          <circle cx="64" cy="64" r="24" fill="#ffffff" fill-opacity="0.22"/>
+          <circle cx="64" cy="64" r="14" fill="#ffffff"/>
+        </svg>
+        <span>WebTabRec</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a class="pill" href="./privacy.html">Privacy Policy (EN/CS)</a>
+        <a class="pill" href="https://github.com/zocek/WebTabRec">GitHub</a>
+        <a class="pill" href="https://github.com/zocek/WebTabRec/releases">Releases</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Record audio, video, or both from a single Chrome tab — 100% locally.</h1>
+        <p class="lead">Free, MIT-licensed open-source Manifest V3 extension. Export MP3, WebM, WAV, or native H.264/AAC MP4 directly to your computer with smart page-block selection, an 8× pixel loupe, live audio passthrough, and zero external network requests.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://github.com/zocek/WebTabRec">View on GitHub</a>
+          <a class="btn btn-secondary" href="./privacy.html">Read Privacy Policy (EN / CS)</a>
+        </div>
+        <div>
+          <span class="badge">0 External Requests</span>
+          <span class="badge">MP3 · WebM · WAV · MP4</span>
+          <span class="badge">Smart Block &amp; 8× Loupe</span>
+          <span class="badge">English &amp; Čeština</span>
+        </div>
+      </section>
+
+      <section class="grid" aria-label="Highlights">
+        <article class="card">
+          <h2>Audio, Video, or Both</h2>
+          <p>Capture a single tab with real-time speaker passthrough, live mute/unmute, pause/resume, and background recording even after closing the popup.</p>
+        </article>
+        <article class="card">
+          <h2>Smart Block &amp; Region Crop</h2>
+          <p>Automatically highlight logical page elements (players, cards, tables) or drag a pixel-accurate region with an 8× circular magnifier loupe.</p>
+        </article>
+        <article class="card">
+          <h2>Privacy by Design</h2>
+          <p>Only 5 minimal MV3 permissions, Incognito disabled, local IndexedDB buffering, and zero cloud servers, telemetry, or accounts.</p>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <span>WebTabRec · MIT License · Petr Žoček</span>
+      <span><a href="./privacy.html">Privacy Policy</a> · <a href="https://github.com/zocek/WebTabRec/issues">Support</a> · <a href="https://github.com/zocek/WebTabRec/blob/main/README.cs.md">Český návod</a></span>
+    </footer>
+  </div>
+</body>
+</html>
