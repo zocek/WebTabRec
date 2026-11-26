@@ -2961,6 +2961,16 @@ export function createChromeEnv(options = {}) {
         await yieldMacro();
         await env.flushMicrotasks(microRounds);
       }
+    },
+    async waitFor(predicate, timeoutMs = 2000, intervalMs = 10) {
+      const deadline = Date.now() + timeoutMs;
+      while (Date.now() < deadline) {
+        await env.flushMicrotasks(8);
+        if (predicate()) return true;
+        await new Promise((r) => setTimeout(r, intervalMs));
+      }
+      await env.flushAsync();
+      return Boolean(predicate());
     }
   };
 

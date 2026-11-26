@@ -197,7 +197,7 @@ test('T4-03: Streamed WAV + keepAudio=false (0-gain sink) -> hit 1.95 GB WAV_MAX
     for (let i = 0; i < 400; i++) {
       env.audioGraph.workletNodes[0]._processAudio([[new Float32Array(128).fill(0.3), new Float32Array(128).fill(-0.3)]], [], {});
     }
-    await new Promise((r) => setTimeout(r, 25));
+    await env.waitFor(() => env.downloads.length >= 1 && errs.some((e) => e.errorCode === 'WAV_SIZE_LIMIT'));
     await env.flushAsync();
 
     assert.equal(env.downloads.length, 1);
