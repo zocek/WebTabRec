@@ -1447,7 +1447,7 @@ test('T2-F16-03: package-release.mjs CLI rejects icon-128.png with non-zero alph
   }
 });
 
-test('T2-F16-04: package-release.mjs fails on invalid locale parity and keeps release ZIP < 1 MB', () => {
+test('T2-F16-04: package-release.mjs fails on invalid locale parity and keeps release ZIP < 1 MB', async () => {
   requireProjectFile('scripts/package-release.mjs');
   const tmp = createTempProjectCopy(PROJECT_ROOT);
   try {
@@ -1461,8 +1461,16 @@ test('T2-F16-04: package-release.mjs fails on invalid locale parity and keeps re
   } finally {
     fs.rmSync(tmp, { recursive: true, force: true });
   }
-  const realZip = requireProjectFile('dist/webtabrec-v1.0.0.zip');
-  assert.ok(fs.statSync(realZip).size < 1_048_576);
+  const { packageRelease } = await import('../../scripts/package-release.mjs');
+  const zipTmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'webtabrec-t2-zip-'));
+  try {
+    const outFile = path.join(zipTmpDir, 'webtabrec-v1.0.0.zip');
+    const pkg = packageRelease({ rootDir: PROJECT_ROOT, outFile });
+    assert.equal(pkg.ok, true, `packageRelease failed: ${pkg.errors.join('; ')}`);
+    assert.ok(fs.statSync(outFile).size < 1_048_576);
+  } finally {
+    fs.rmSync(zipTmpDir, { recursive: true, force: true });
+  }
 });
 
 test('T2-F16-05: all 5 store screenshots are distinct 8-bit 1280x800 RGB ColorType=2 PNGs', () => {

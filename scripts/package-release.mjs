@@ -1047,7 +1047,9 @@ export function packageRelease(options = {}) {
 
   if (errors.length === 0) {
     fs.mkdirSync(path.dirname(outputPath), { recursive: true });
-    fs.writeFileSync(outputPath, zipBuffer);
+    const tmpPath = `${outputPath}.${process.pid}.${Date.now()}.${Math.random().toString(16).slice(2)}.tmp`;
+    fs.writeFileSync(tmpPath, zipBuffer);
+    fs.renameSync(tmpPath, outputPath);
   }
 
   return {
