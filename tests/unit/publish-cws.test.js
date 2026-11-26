@@ -29,7 +29,7 @@ const SAMPLE_SA = {
 const VALID_EXT_ID = 'abcdefghijklmnopabcdefghijklmnop';
 const VALID_PUB_ID = 'pub-1234567890';
 
-function withTempZip(fn) {
+async function withTempZip(fn) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'webtabrec-cws-test-'));
   const zipPath = path.join(dir, 'webtabrec-v1.0.0.zip');
   // Minimal ZIP header (PK\x03\x04 + padding >= 22 bytes)
@@ -40,7 +40,7 @@ function withTempZip(fn) {
   buf[3] = 0x04;
   fs.writeFileSync(zipPath, buf);
   try {
-    return fn(zipPath, dir);
+    return await fn(zipPath, dir);
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });
   }
