@@ -570,10 +570,15 @@ test('popup Split Button keyboard navigation, outside click, and START_REGION_SE
 
 test('popup covers all 9 states, Go to tab, live mute, meter port lifecycle, and GET_STATE race guard', async () => {
   let resolveGetState;
+  let notifyGetStateInFlight;
+  const getStateInFlight = new Promise((resolve) => {
+    notifyGetStateInFlight = resolve;
+  });
   const h = createHarness({
     activeTab: { id: 99, title: 'Notes Tab', url: 'https://notes.example.org' },
     onSendMessage(msg) {
       if (msg.type === 'GET_STATE') {
+        notifyGetStateInFlight();
         return new Promise((resolve) => {
           resolveGetState = resolve;
         });
@@ -592,8 +597,8 @@ test('popup covers all 9 states, Go to tab, live mute, meter port lifecycle, and
     fetchImpl: h.fetchImpl
   });
 
-  // Wait a microtask until GET_STATE is in-flight, then push fresher STATE_UPDATE
-  await new Promise((r) => setTimeout(r, 10));
+  // Wait deterministically until GET_STATE is in-flight, then push fresher STATE_UPDATE
+  await getStateInFlight;
   h.pushStateUpdate({
     status: RECORDING_STATUS.RECORDING,
     sessionId: 'sess-1',

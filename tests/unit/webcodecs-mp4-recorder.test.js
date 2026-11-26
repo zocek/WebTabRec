@@ -343,6 +343,10 @@ test('createWebCodecsMp4Recorder preserves static pre-pause duration, initial A/
 
       // 2. dispose() while isConfigSupported is pending must NOT construct/leak a VideoEncoder
       let releaseSupport;
+      let notifySupportPending;
+      const supportPending = new Promise((res) => {
+        notifySupportPending = res;
+      });
       const OrigVE = globalThis.VideoEncoder;
       let constructedAfterDispose = 0;
       globalThis.VideoEncoder = class extends OrigVE {
@@ -351,6 +355,7 @@ test('createWebCodecsMp4Recorder preserves static pre-pause duration, initial A/
           super(init);
         }
         static isConfigSupported() {
+          notifySupportPending();
           return new Promise((res) => {
             releaseSupport = () => res({ supported: true, config: { codec: 'avc1.640033' } });
           });
@@ -364,7 +369,7 @@ test('createWebCodecsMp4Recorder preserves static pre-pause duration, initial A/
           onError: () => {}
         });
         vidTrack._pushVideoFrame(new VideoFrame(null, { codedWidth: 1280, codedHeight: 720, timestamp: 0 }));
-        await new Promise((r) => setTimeout(r, 15));
+        await supportPending;
         rec2.dispose();
         releaseSupport?.();
         await new Promise((r) => setTimeout(r, 15));
@@ -532,11 +537,16 @@ test('R2 regression: pre-first-frame pause does not corrupt video timeline/edts,
       // R3 regression (Codex H1): pause/resume during async selectSupportedVideoConfig must drop pre-pause frame
       const OrigVE = globalThis.VideoEncoder;
       let releaseSlowConfig = null;
+      let notifySlowConfigPending;
+      const slowConfigPending = new Promise((resolve) => {
+        notifySlowConfigPending = resolve;
+      });
       let slowConfigCalls = 0;
       globalThis.VideoEncoder = class SlowConfigVideoEncoder extends OrigVE {
         static isConfigSupported(cfg) {
           slowConfigCalls += 1;
           if (slowConfigCalls === 1) {
+            notifySlowConfigPending();
             return new Promise((resolve) => {
               releaseSlowConfig = () => resolve({ supported: true, config: cfg });
             });
@@ -563,14 +573,14 @@ test('R2 regression: pre-first-frame pause does not corrupt video timeline/edts,
         });
         // Frame arrives at t=0 before async isConfigSupported resolves
         vt3._pushVideoFrame(new OrigVF(null, { codedWidth: 1280, codedHeight: 720, timestamp: 0 }));
-        await new Promise((r) => setTimeout(r, 15));
+        await slowConfigPending;
         // Full 2s pause/resume occurs WHILE encoder config is awaiting
         clock3 += 50_000;
         recSlow.pause();
         clock3 += 2_000_000;
         recSlow.resume();
         releaseSlowConfig?.();
-        await new Promise((r) => setTimeout(r, 15));
+        await new Promise((r) => setTimeout(r, 30));
         // Post-resume frames arrive at 2.1s and 2.3s (200ms delta, NOT 2200ms!)
         vt3._pushVideoFrame(new OrigVF(null, { codedWidth: 1280, codedHeight: 720, timestamp: 2_100_000 }));
         vt3._pushVideoFrame(new OrigVF(null, { codedWidth: 1280, codedHeight: 720, timestamp: 2_300_000 }));

@@ -1414,7 +1414,17 @@ test('T1-F17-01: unit test suite under tests/unit/*.test.js exists and passes cl
   assert.ok(unitFiles.length > 0, 'Expected unit test files in tests/unit/');
   const childEnv = { ...process.env };
   delete childEnv.NODE_TEST_CONTEXT;
-  execFileSync(process.execPath, ['--test', ...unitFiles], { cwd: PROJECT_ROOT, env: childEnv, encoding: 'utf8' });
+  try {
+    execFileSync(process.execPath, ['--test', '--test-concurrency=2', ...unitFiles], {
+      cwd: PROJECT_ROOT,
+      env: childEnv,
+      encoding: 'utf8',
+      maxBuffer: 10 * 1024 * 1024
+    });
+  } catch (err) {
+    const tail = `${err.stdout || ''}\n${err.stderr || ''}`.trim().slice(-2000);
+    assert.fail(`Nested unit suite failed (exit ${err.status}):\n${tail}`);
+  }
 });
 
 test('T1-F17-02: validate-locales.mjs and package-release.mjs execute cleanly end-to-end', () => {
