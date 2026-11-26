@@ -56,10 +56,19 @@ Tento návod pokrývá celý proces zveřejnění **WebTabRec** jako bezplatnéh
 
 ---
 
-## 3. Aktualizace a bezpečný Rollback
+## 3. Automatizované vydávání přes GitHub Actions a Chrome Web Store API v2
+
+Po prvním ručním založení položky (`v1.0.0`) v Chrome Web Store Developer Dashboardu zajišťuje všechna další vydání workflow [`.github/workflows/release.yml`](../.github/workflows/release.yml) společně s nulově závislým skriptem [`scripts/publish-cws.mjs`](../scripts/publish-cws.mjs):
+
+1. **Automatický GitHub Release:** Každý push tagu `vX.Y.Z` (nebo ruční spuštění *Actions → Release & Chrome Web Store → Run workflow*) ověří shodu verze s `manifest.json`, spustí kompletní testovací sadu včetně `ffmpeg` MP3 kontroly, sestaví deterministický ZIP + `SHA256SUMS.txt` a vytvoří/aktualizuje GitHub Release.
+2. **Automatické nahrání do Chrome Web Store (API v2):** Jakmile v GitHub repozitáři (*Settings → Secrets and variables → Actions*, ideálně v Environmentu `chrome-web-store`) doplníš tři tajné hodnoty (`CHROME_PUBLISHER_ID`, `CHROME_EXTENSION_ID`, `CHROME_SERVICE_ACCOUNT_JSON`), workflow automaticky nahraje ověřený ZIP přes Google Service Account (výchozí režim `draft` pro bezpečnou kontrolu v Dashboardu; volitelně `staged` nebo `publish`). Dokud nejsou tajné hodnoty nastaveny, krok se čistě přeskočí bez ovlivnění GitHub Release.
+
+---
+
+## 4. Aktualizace a bezpečný Rollback
 
 1. Zvyš `version` v `manifest.json` (Chrome vyžaduje pokaždé vyšší číslo) a doplň [CHANGELOG.md](../CHANGELOG.md).
-2. Projdi Release Gate, vytvoř nový Git tag + GitHub Release s novým ZIP balíčkem a nahraj ho přes **Package → Upload new package** → **Submit for review**.
+2. Projdi Release Gate a vytvoř + pushni nový anotovaný Git tag (`git tag -a vX.Y.Z -m "WebTabRec vX.Y.Z" && git push origin vX.Y.Z`) — workflow automaticky publikuje GitHub Release a (pokud jsou nastaveny CWS Secrets) nahraje balíček do Chrome Web Store.
 3. **Rychlý Rollback při závažné chybě:** V Chrome Web Store Developer Dashboard nejprve využij vestavěnou funkci **Rollback** (pokud je pro předchozí verzi dostupná), a poté srovnej historii v Gitu (`revert` + řádná patch verze).
 
-Detailní publikační checklist, mapu toků dat pro Privacy formulář, anglické texty k přímému zkopírování a tabulku grafických rozměrů najdeš v [technické specifikaci publikace](specs/publishing.spec.md).
+Detailní publikační checklist, mapu toků dat pro Privacy formulář, anglické texty k přímému zkopírování, konfiguraci Chrome Web Store API v2 a tabulku grafických rozměrů najdeš v [technické specifikaci publikace](specs/publishing.spec.md).

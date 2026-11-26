@@ -137,7 +137,32 @@ Místo paušálního „neexistují žádná uživatelská data“ je nutné roz
 
 ---
 
-## 6. Verzování, schvalování a rollback (SemVer)
+## 6. Automatizovaný Release & Chrome Web Store API v2 (`.github/workflows/release.yml`)
+
+```mermaid
+flowchart LR
+  Tag["Push tagu vX.Y.Z / workflow_dispatch"] --> Gate["Job 1: Verify & Package (Node 22 + ffmpeg)"]
+  Gate --> GHRel["gh release create (ZIP + SHA256SUMS.txt)"]
+  Gate --> Art["Artifact webtabrec-release-zip"]
+  Art --> Env["Job 2: environment chrome-web-store"]
+  Env --> Check{"CWS Secrets nastaveny?"}
+  Check -- "Ne" --> Skip["Čistý skip (GitHub Release OK)"]
+  Check -- "Ano" --> Pub["scripts/publish-cws.mjs (RS256 JWT -> API v2 :upload / :fetchStatus / :publish)"]
+```
+
+- **Skript:** `scripts/publish-cws.mjs` (čistý Node.js bez externích balíčků; vyloučen z runtime ZIP balíčku přes denylist `scripts/`).
+- **Endpointy Chrome Web Store API v2 (scope `https://www.googleapis.com/auth/chromewebstore`):**
+  - Upload: `POST https://chromewebstore.googleapis.com/upload/v2/publishers/{PUBLISHER_ID}/items/{EXTENSION_ID}:upload` (`Content-Type: application/zip`)
+  - Polling při `IN_PROGRESS`: `GET https://chromewebstore.googleapis.com/v2/publishers/{PUBLISHER_ID}/items/{EXTENSION_ID}:fetchStatus`
+  - Odeslání (pro režimy `staged` = `STAGED_PUBLISH` a `publish` = `DEFAULT_PUBLISH`): `POST https://chromewebstore.googleapis.com/v2/publishers/{PUBLISHER_ID}/items/{EXTENSION_ID}:publish`
+- **GitHub Secrets (doporučeno uložit do Environmentu `chrome-web-store` s ručním schválením):**
+  - `CHROME_PUBLISHER_ID` — Publisher ID z Chrome Web Store Developer Dashboard (*Account*)
+  - `CHROME_EXTENSION_ID` — 32znakové ID položky (`a–p`) přidělené po prvním ručním založení `v1.0.0`
+  - `CHROME_SERVICE_ACCOUNT_JSON` — JSON klíč Google Cloud Service Accountu přidaného v Dashboardu pod *Account*
+
+---
+
+## 7. Verzování, schvalování a rollback (SemVer)
 
 - Používáme **Semantic Versioning** (`MAJOR.MINOR.PATCH`), Chrome vyžaduje 1–4 celá čísla oddělená tečkou (`1.0.0`, `1.1.0`, `1.1.1`).
 - Verze v `manifest.json` musí být při každém nahrání **striktně vyšší** než předchozí publikovaná verze.

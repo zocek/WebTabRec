@@ -1,0 +1,215 @@
+name: Release & Chrome Web Store
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing Git tag to release (e.g. v1.0.0); leave empty to use manifest.json version'
+        required: false
+        default: ''
+      cws_mode:
+        description: 'Chrome Web Store API v2 action (requires CWS secrets)'
+        type: choice
+        default: draft
+        options:
+          - draft
+          - staged
+          - publish
+          - skip
+
+permissions: {}
+
+jobs:
+  build-and-release:
+    name: Validate, Build & GitHub Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      version: ${{ steps.meta.outputs.version }}
+      tag: ${{ steps.meta.outputs.tag }}
+      zip_name: ${{ steps.meta.outputs.zip_name }}
+      cws_mode: ${{ steps.meta.outputs.cws_mode }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.tag != '' && format('refs/tags/{0}', inputs.tag) || github.ref }}
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+
+      - name: Resolve and verify release version vs tag
+        id: meta
+        env:
+          INPUT_TAG: ${{ inputs.tag }}
+          INPUT_CWS_MODE: ${{ inputs.cws_mode }}
+          GITHUB_REF_TYPE: ${{ github.ref_type }}
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+        run: |
+          node --input-type=module -e "
+            import fs from 'node:fs';
+            const manifest = JSON.parse(fs.readFileSync('manifest.json', 'utf8'));
+            const version = manifest.version;
+            const rawTag = process.env.INPUT_TAG || (process.env.GITHUB_REF_TYPE === 'tag' ? process.env.GITHUB_REF_NAME : 'v' + version);
+            if (rawTag !== 'v' + version) {
+              throw new Error('Tag ' + rawTag + ' does not match manifest.json version v' + version);
+            }
+            const cwsMode = process.env.INPUT_CWS_MODE || 'draft';
+            const out = [
+              'version=' + version,
+              'tag=' + rawTag,
+              'zip_name=webtabrec-v' + version + '.zip',
+              'cws_mode=' + cwsMode
+            ].join('\n') + '\n';
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, out);
+            console.log('Release verified:', rawTag, '-> dist/webtabrec-v' + version + '.zip', '(CWS mode:', cwsMode + ')');
+          "
+
+      - name: Validate locales and manifest
+        run: npm run validate:locales
+
+      - name: Run unit and E2E test suite
+        run: npm test
+
+      - name: Run Chrome mock harness self-tests
+        run: node --test tests/e2e/helpers/chrome-mock.test.js
+
+      - name: Install ffmpeg for MP3 verification
+        run: |
+          if ! command -v ffmpeg >/dev/null 2>&1 || ! command -v ffprobe >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y --no-install-recommends ffmpeg
+          fi
+
+      - name: Verify MP3 encoder acoustic round-trip with ffmpeg
+        run: |
+          node --input-type=module -e "
+            import fs from 'node:fs';
+            import { execFileSync } from 'node:child_process';
+            import { createMp3Encoder } from './src/offscreen/mp3-encoder.js';
+            const sr = 48000;
+            const samples = sr;
+            const pcm = new Int16Array(samples * 2);
+            for (let i = 0; i < samples; i++) {
+              const v = Math.round(Math.sin(2 * Math.PI * 1000 * i / sr) * 16000);
+              pcm[i * 2] = v;
+              pcm[i * 2 + 1] = v;
+            }
+            const enc = createMp3Encoder({ sampleRate: sr, channels: 2, bitrateKbps: 192 });
+            const body = enc.encodeInterleavedPcm16(pcm.buffer);
+            const tail = enc.flush();
+            const mp3 = Buffer.concat([Buffer.from(body), Buffer.from(tail)]);
+            fs.writeFileSync('/tmp/release-ci-test.mp3', mp3);
+            execFileSync('ffmpeg', ['-v', 'error', '-i', '/tmp/release-ci-test.mp3', '-f', 'null', '-']);
+            console.log('OK: ffmpeg decoded MP3 cleanly with 0 errors (' + mp3.length + ' bytes)');
+          "
+
+      - name: Build deterministic release ZIP and SHA256SUMS.txt
+        env:
+          ZIP_NAME: ${{ steps.meta.outputs.zip_name }}
+        run: |
+          npm run package
+          (cd dist && sha256sum "$ZIP_NAME" > SHA256SUMS.txt)
+          cat dist/SHA256SUMS.txt
+
+      - name: Prepare Release Notes from CHANGELOG.md
+        env:
+          RELEASE_VERSION: ${{ steps.meta.outputs.version }}
+          RELEASE_TAG: ${{ steps.meta.outputs.tag }}
+          ZIP_NAME: ${{ steps.meta.outputs.zip_name }}
+        run: |
+          node --input-type=module -e "
+            import fs from 'node:fs';
+            const version = process.env.RELEASE_VERSION;
+            const tag = process.env.RELEASE_TAG;
+            const zipName = process.env.ZIP_NAME;
+            const changelog = fs.readFileSync('CHANGELOG.md', 'utf8');
+            const escaped = version.replace(/\./g, '\\.');
+            const re = new RegExp('^## \\\\[' + escaped + '\\\\][^\\n]*\\n([\\s\\S]*?)(?=^## \\\\[|$)', 'm');
+            const match = changelog.match(re);
+            const body = match ? match[1].trim() : 'Release ' + tag + ' of WebTabRec.';
+            const sha = fs.readFileSync('dist/SHA256SUMS.txt', 'utf8').trim();
+            const notes = [
+              '## WebTabRec ' + tag,
+              '',
+              body,
+              '',
+              '### Checksum (\`' + zipName + '\`)',
+              '\`\`\`text',
+              sha,
+              '\`\`\`'
+            ].join('\n') + '\n';
+            fs.writeFileSync('/tmp/release-notes.md', notes);
+          "
+
+      - name: Create or update GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ steps.meta.outputs.tag }}
+          ZIP_NAME: ${{ steps.meta.outputs.zip_name }}
+        run: |
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            echo "Release $RELEASE_TAG already exists — updating assets and notes."
+            gh release upload "$RELEASE_TAG" "dist/$ZIP_NAME" "dist/SHA256SUMS.txt" --clobber
+            gh release edit "$RELEASE_TAG" --notes-file /tmp/release-notes.md
+          else
+            gh release create "$RELEASE_TAG" \
+              "dist/$ZIP_NAME" \
+              "dist/SHA256SUMS.txt" \
+              --title "WebTabRec $RELEASE_TAG" \
+              --notes-file /tmp/release-notes.md
+          fi
+
+      - name: Upload verified ZIP artifact for Store job
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: webtabrec-release-zip
+          path: |
+            dist/${{ steps.meta.outputs.zip_name }}
+            dist/SHA256SUMS.txt
+          if-no-files-found: error
+          retention-days: 14
+
+  publish-chrome-web-store:
+    name: Publish to Chrome Web Store (API v2)
+    needs: build-and-release
+    if: ${{ needs.build-and-release.outputs.cws_mode != 'skip' }}
+    runs-on: ubuntu-latest
+    environment: chrome-web-store
+    permissions: {}
+
+    steps:
+      - name: Checkout repository (publisher script only)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+
+      - name: Download verified release ZIP artifact
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: webtabrec-release-zip
+          path: dist
+
+      - name: Upload / publish to Chrome Web Store API v2
+        env:
+          CHROME_PUBLISHER_ID: ${{ secrets.CHROME_PUBLISHER_ID }}
+          CHROME_EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
+          CHROME_SERVICE_ACCOUNT_JSON: ${{ secrets.CHROME_SERVICE_ACCOUNT_JSON }}
+          CWS_ZIP_PATH: dist/${{ needs.build-and-release.outputs.zip_name }}
+          CWS_PUBLISH_MODE: ${{ needs.build-and-release.outputs.cws_mode }}
+        run: |
+          if [ -z "$CHROME_PUBLISHER_ID" ] || [ -z "$CHROME_EXTENSION_ID" ] || [ -z "$CHROME_SERVICE_ACCOUNT_JSON" ]; then
+            echo "::notice::Chrome Web Store secrets (CHROME_PUBLISHER_ID, CHROME_EXTENSION_ID, CHROME_SERVICE_ACCOUNT_JSON) are not configured yet — skipping automatic Store upload. GitHub Release succeeded."
+            exit 0
+          fi
+          node scripts/publish-cws.mjs
