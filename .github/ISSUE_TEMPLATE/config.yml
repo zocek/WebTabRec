@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security & Privacy Vulnerability Report
+    url: https://github.com/zocek/WebTabRec/security/advisories/new
+    about: Please do NOT report security or privacy issues publicly — use GitHub Private Vulnerability Reporting (see SECURITY.md).
+  - name: Documentation & FAQ
+    url: https://github.com/zocek/WebTabRec/blob/main/README.md
+    about: Read usage instructions, browser limitations (chrome://, DRM), and FAQ before opening an issue.

@@ -1,0 +1,17 @@
+{
+  "name": "webtabrec",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "validate:locales": "node scripts/validate-locales.mjs",
+    "test": "node --test tests/unit/*.test.js tests/e2e/*.test.js",
+    "test:unit": "node --test tests/unit/*.test.js",
+    "test:e2e": "node --test tests/e2e/*.test.js",
+    "package": "node scripts/package-release.mjs",
+    "check": "npm run validate:locales && npm test"
+  }
+}

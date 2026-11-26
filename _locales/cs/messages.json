@@ -1,0 +1,515 @@
+{
+  "extName": {
+    "message": "WebTabRec — Nahrávání zvuku a videa z karty"
+  },
+  "extDescription": {
+    "message": "Bezplatný open-source nástroj pro lokální nahrávání zvuku, videa nebo obojího z jedné karty. Bez cloudu a časových limitů."
+  },
+  "fallbackTabTitle": {
+    "message": "karta"
+  },
+  "actionTitle": {
+    "message": "Otevřít WebTabRec"
+  },
+  "actionTitleRecording": {
+    "message": "WebTabRec — Nahrává se: $TITLE$",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "Přednáška — Úvod"
+      }
+    }
+  },
+  "actionTitlePaused": {
+    "message": "WebTabRec — Pozastaveno: $TITLE$",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "Přednáška — Úvod"
+      }
+    }
+  },
+  "cmdToggleRecording": {
+    "message": "Spustit nebo zastavit nahrávání karty"
+  },
+  "cmdTogglePause": {
+    "message": "Pozastavit nebo obnovit nahrávání karty"
+  },
+  "cmdOpenPopup": {
+    "message": "Otevřít okno WebTabRec"
+  },
+  "shortcutNotSet": {
+    "message": "Nenastaveno"
+  },
+  "languageAuto": {
+    "message": "Automaticky (jazyk prohlížeče)"
+  },
+  "languageAutoShort": {
+    "message": "Auto"
+  },
+  "languageAutoMenu": {
+    "message": "Auto (Prohlížeč)"
+  },
+  "labelActiveTab": {
+    "message": "Aktivní karta"
+  },
+  "labelRecordedTab": {
+    "message": "Nahrávaná karta"
+  },
+  "btnGoToRecordedTab": {
+    "message": "Přejít na kartu"
+  },
+  "labelMode": {
+    "message": "Co chcete nahrát"
+  },
+  "modeAudio": {
+    "message": "Audio"
+  },
+  "modeAudioSub": {
+    "message": "Pouze zvuk"
+  },
+  "modeVideo": {
+    "message": "Video"
+  },
+  "modeVideoSub": {
+    "message": "Pouze obraz"
+  },
+  "modeBoth": {
+    "message": "Obojí"
+  },
+  "modeBothSub": {
+    "message": "Obraz + zvuk"
+  },
+  "labelFormat": {
+    "message": "Formát souboru"
+  },
+  "labelVideoFormat": {
+    "message": "Formát videa"
+  },
+  "labelAudioFormat": {
+    "message": "Formát zvuku"
+  },
+  "formatMp3": {
+    "message": "MP3 (Univerzální · 192 kbps)"
+  },
+  "formatWebmRecommended": {
+    "message": "WebM (Doporučeno)"
+  },
+  "formatWebmVideo": {
+    "message": "WebM (VP9 · obnova po pádu)"
+  },
+  "formatWebmAudio": {
+    "message": "WebM (Opus · nejmenší soubor)"
+  },
+  "formatMp4": {
+    "message": "MP4 (H.264)"
+  },
+  "formatMp4Unsupported": {
+    "message": "MP4 (Nepodporováno v tomto prohlížeči)"
+  },
+  "formatWav": {
+    "message": "WAV (Nekomprimovaný zvuk)"
+  },
+  "formatShortMp3": {
+    "message": "MP3 · 192 kbps"
+  },
+  "formatShortWebmAudio": {
+    "message": "WebM (Opus)"
+  },
+  "formatShortWav": {
+    "message": "WAV (PCM)"
+  },
+  "formatShortMp4": {
+    "message": "MP4"
+  },
+  "formatShortWebmVideo": {
+    "message": "WebM"
+  },
+  "formatHintMp3": {
+    "message": "Nejširší kompatibilita (auta, přehrávače, mobily, PowerPoint). Kompaktní soubor (~1,4 MB/min) s obnovou po pádu."
+  },
+  "formatHintMp4": {
+    "message": "Doporučeno pro video: plynulý obraz, věrné barvy a široká kompatibilita (Windows, Mac, mobily, editory). Bez obnovy po pádu."
+  },
+  "formatHintWebmVideo": {
+    "message": "Menší soubor a obnova po pádu prohlížeče — vhodné pro dlouhé záznamy a web. Pro sdílení či střih zvolte MP4."
+  },
+  "formatHintWebmAudio": {
+    "message": "Nejmenší velikost souboru: čistý zvuk Opus (~1 MB/min) s obnovou po pádu. Pro univerzální přehrávání zvolte MP3."
+  },
+  "formatHintWav": {
+    "message": "Bezztrátový zvuk pro další úpravy v audio editorech — výrazně větší soubor (~10 MB/min)."
+  },
+  "labelVideoQuality": {
+    "message": "Kvalita videa"
+  },
+  "qualityStandard": {
+    "message": "Standardní (menší soubor)"
+  },
+  "qualityHigh": {
+    "message": "Vysoká (ostré detaily a barvy)"
+  },
+  "qualityShortStandard": {
+    "message": "Standardní kvalita"
+  },
+  "qualityShortHigh": {
+    "message": "Vysoká kvalita"
+  },
+  "qualityHintStandard": {
+    "message": "Vyvážená kvalita až 1080p — datový tok se automaticky přizpůsobí rozlišení pro menší soubory."
+  },
+  "qualityHintHigh": {
+    "message": "Nativní rozlišení pro ostrý text a věrné barvy — datový tok se automaticky přizpůsobí velikosti obrazu či výřezu."
+  },
+  "labelKeepAudio": {
+    "message": "Slyšet zvuk během záznamu"
+  },
+  "speakerMonitor": {
+    "message": "Poslech"
+  },
+  "speakerMuted": {
+    "message": "Ztlumeno"
+  },
+  "speakerTooltip": {
+    "message": "Během nahrávání uslyšíte zvuk karty z reproduktorů. Kliknutím ztlumíte poslech (záznam bude obsahovat zvuk i nadále)."
+  },
+  "speakerAriaMonitor": {
+    "message": "Živý poslech zvuku karty je zapnutý. Kliknutím jej ztlumíte."
+  },
+  "speakerAriaMuted": {
+    "message": "Živý poslech zvuku karty je ztlumený. Kliknutím jej obnovíte."
+  },
+  "btnSettingsAria": {
+    "message": "Výchozí nastavení formátu a kvality"
+  },
+  "btnSettingsBack": {
+    "message": "Zpět"
+  },
+  "settingsTitle": {
+    "message": "Výchozí nastavení"
+  },
+  "settingsSectionVideo": {
+    "message": "Video a Obojí"
+  },
+  "settingsSectionAudio": {
+    "message": "Pouze Audio"
+  },
+  "configEdit": {
+    "message": "Upravit"
+  },
+  "configSummaryAria": {
+    "message": "Aktivní konfigurace záznamu: $SUMMARY$. Kliknutím upravíte v nastavení.",
+    "placeholders": {
+      "summary": {
+        "content": "$1",
+        "example": "MP4 · Vysoká kvalita"
+      }
+    }
+  },
+  "btnMutePassthrough": {
+    "message": "Ztlumit živý poslech"
+  },
+  "btnUnmutePassthrough": {
+    "message": "Obnovit živý poslech"
+  },
+  "labelLanguage": {
+    "message": "Jazyk"
+  },
+  "labelDuration": {
+    "message": "Délka"
+  },
+  "labelSize": {
+    "message": "Velikost"
+  },
+  "ariaAudioMeter": {
+    "message": "Živá úroveň zvuku karty"
+  },
+  "btnStart": {
+    "message": "Spustit nahrávání"
+  },
+  "btnStartMenuAria": {
+    "message": "Další možnosti spuštění záznamu"
+  },
+  "menuRecordFullTab": {
+    "message": "Celá karta"
+  },
+  "menuRecordSmartRegion": {
+    "message": "Vybrat blok stránky (automaticky)…"
+  },
+  "menuRecordSmartRegionSub": {
+    "message": "Najetím označí prvek, kolečkem změní úroveň"
+  },
+  "menuRecordRegion": {
+    "message": "Vybrat výřez ručně (lupa)…"
+  },
+  "menuRecordRegionSub": {
+    "message": "Přesný výběr tažením s 8× pixelovou lupou"
+  },
+  "regionModeSmart": {
+    "message": "Bloky"
+  },
+  "regionModeManual": {
+    "message": "Ručně"
+  },
+  "regionHintSmart": {
+    "message": "Klik: vybrat blok · Kolečko / ↑↓: změnit úroveň · Tažení: ručně · Esc: zrušit"
+  },
+  "regionHintDrag": {
+    "message": "Klikněte a tažením vyberte výřez · Esc pro zrušení"
+  },
+  "regionHelpToggleAria": {
+    "message": "Zobrazit nápovědu k výběru"
+  },
+  "regionCoachTitle": {
+    "message": "Rychlý tip: Chytrý výběr bloků"
+  },
+  "regionCoachStepHover": {
+    "message": "Najetím myší automaticky označíte video, kartu, tabulku nebo sekci."
+  },
+  "regionCoachStepWheel": {
+    "message": "Kolečkem myši nebo šipkami ↑ / ↓ rozšíříte či zúžíte úroveň výběru."
+  },
+  "regionCoachStepClick": {
+    "message": "Kliknutím blok zamknete (tažením rovnou přepnete na ruční výřez s lupou)."
+  },
+  "regionCoachGotIt": {
+    "message": "Rozumím"
+  },
+  "regionBtnWider": {
+    "message": "▲ Širší"
+  },
+  "regionBtnNarrower": {
+    "message": "▼ Užší"
+  },
+  "regionBtnWiderTitle": {
+    "message": "Rozšířit na nadřazený blok (PageUp nebo [)"
+  },
+  "regionBtnNarrowerTitle": {
+    "message": "Zúžit na vnořený blok (PageDown nebo ])"
+  },
+  "regionElVideo": {
+    "message": "Video"
+  },
+  "regionElFrame": {
+    "message": "Rámec"
+  },
+  "regionElCanvas": {
+    "message": "Plátno"
+  },
+  "regionElImage": {
+    "message": "Obrázek"
+  },
+  "regionElTable": {
+    "message": "Tabulka"
+  },
+  "regionElCode": {
+    "message": "Kód"
+  },
+  "regionElDialog": {
+    "message": "Dialog"
+  },
+  "regionElArticle": {
+    "message": "Článek"
+  },
+  "regionElSection": {
+    "message": "Sekce"
+  },
+  "regionElBlock": {
+    "message": "Blok"
+  },
+  "regionBtnStart": {
+    "message": "Spustit nahrávání"
+  },
+  "regionBtnReselect": {
+    "message": "Vybrat znovu"
+  },
+  "regionBtnCancel": {
+    "message": "Zrušit"
+  },
+  "regionTooSmall": {
+    "message": "Vybraný výřez je příliš malý (minimum 32 × 32 px). Zvolte větší oblast."
+  },
+  "labelRegionActive": {
+    "message": "Výřez stránky ($SIZE$)",
+    "placeholders": {
+      "size": {
+        "content": "$1",
+        "example": "1280 × 720 px"
+      }
+    }
+  },
+  "btnPause": {
+    "message": "Pauza"
+  },
+  "btnResume": {
+    "message": "Pokračovat"
+  },
+  "btnStopSave": {
+    "message": "Zastavit a uložit"
+  },
+  "btnDownloadAgain": {
+    "message": "Stáhnout znovu"
+  },
+  "btnDismissExport": {
+    "message": "Hotovo"
+  },
+  "btnCloseError": {
+    "message": "Zavřít"
+  },
+  "btnHelp": {
+    "message": "Rychlý návod a zkratky"
+  },
+  "footerPrivacy": {
+    "message": "100 % lokálně · Bez cloudu"
+  },
+  "statusStarting": {
+    "message": "Spouštění nahrávání..."
+  },
+  "statusRecording": {
+    "message": "Nahrává se: $TITLE$",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "Přednáška — Úvod"
+      }
+    }
+  },
+  "statusPaused": {
+    "message": "Pozastaveno: $TITLE$",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "Přednáška — Úvod"
+      }
+    }
+  },
+  "statusSaving": {
+    "message": "Příprava souboru ke stažení..."
+  },
+  "statusDownloadStarted": {
+    "message": "Stahování zahájeno: $FILENAME$",
+    "placeholders": {
+      "filename": {
+        "content": "$1",
+        "example": "webtabrec_lecture_2026-11-25_14-30-00.webm"
+      }
+    }
+  },
+  "statusTabClosedSaved": {
+    "message": "Nahrávaná karta byla zavřena — stahování se automaticky spustilo."
+  },
+  "statusFormatFallback": {
+    "message": "Zvolený formát nebyl dostupný — nahrává se ve WebM."
+  },
+  "recoveryTitle": {
+    "message": "Nalezena nedokončená nahrávka"
+  },
+  "btnRecover": {
+    "message": "Stáhnout"
+  },
+  "btnDiscard": {
+    "message": "Zahodit"
+  },
+  "errUnsupportedTab": {
+    "message": "Systémové stránky prohlížeče (chrome:// nebo Web Store) nelze nahrávat. Přejděte na běžnou webovou stránku a zkuste to znovu."
+  },
+  "errInjectionFailed": {
+    "message": "Na této stránce nelze otevřít výběr výřezu. Zkontrolujte oprávnění pro místní soubory nebo nahrajte celou kartu."
+  },
+  "errNotInvoked": {
+    "message": "Klikněte prosím na ikonu WebTabRec na horní liště u této karty pro povolení nahrávání."
+  },
+  "errTabAlreadyCaptured": {
+    "message": "Tato karta už je nahrávána nebo sdílena jiným nástrojem."
+  },
+  "errCaptureFailed": {
+    "message": "Nepodařilo se zahájit záznam karty. Obnovte stránku a zkuste to znovu."
+  },
+  "errAudioContextFailed": {
+    "message": "Nepodařilo se spustit lokální přehrávání zvuku. Zkuste kliknout do stránky nebo kartu obnovit."
+  },
+  "errQuotaExceeded": {
+    "message": "Úložiště prohlížeče je plné. Záznam byl zastaven s pokusem o export."
+  },
+  "errQuotaLowPrestart": {
+    "message": "Pro spuštění záznamu není v prohlížeči dostatek volného místa. Uvolněte úložiště a zkuste to znovu."
+  },
+  "errWavSizeLimit": {
+    "message": "Byl dosažen technický limit velikosti WAV (~2 GB). Záznam byl bezpečně zastaven a připraven ke stažení."
+  },
+  "errWriteFailed": {
+    "message": "Nepodařilo se zapsat data záznamu do lokálního úložiště prohlížeče. Obnovte kartu nebo uvolněte místo a zkuste to znovu."
+  },
+  "errSaveFailed": {
+    "message": "Nepodařilo se sestavit nebo uložit soubor nahrávky. Zavřete zprávu a zkuste záznam spustit znovu."
+  },
+  "errRecoveryFailed": {
+    "message": "Přerušenou nahrávku se nepodařilo obnovit. Můžete to zkusit znovu, nebo ji zahodit."
+  },
+  "errOffscreenLost": {
+    "message": "Nahrávání na pozadí bylo neočekávaně ukončeno. Otevřete okno rozšíření pro kontrolu obnovitelného záznamu."
+  },
+  "btnCopyShortcuts": {
+    "message": "Kopírovat adresu zkratek"
+  },
+  "btnCopied": {
+    "message": "Zkopírováno"
+  },
+  "welcomeTitle": {
+    "message": "Vítejte ve WebTabRec"
+  },
+  "welcomeSubtitle": {
+    "message": "Nahrávejte zvuk, video nebo obojí z jedné běžné karty prohlížeče — 100 % lokálně a zdarma."
+  },
+  "welcomeSectionStart": {
+    "message": "Jak začít ve 3 krocích"
+  },
+  "welcomeStep1Title": {
+    "message": "Otevřete nebo připněte WebTabRec na lištu"
+  },
+  "welcomeStep1Desc": {
+    "message": "Klikněte na ikonu puzzle vpravo nahoře — můžete rozšíření spustit přímo, nebo si ho připnout špendlíkem."
+  },
+  "welcomeStep2Title": {
+    "message": "Přejděte na běžnou webovou stránku a vyberte režim"
+  },
+  "welcomeStep2Desc": {
+    "message": "Otevřete kartu, kterou chcete nahrát, a zvolte Audio, Video nebo Obojí. Šipkou u Spustit nahrávání můžete automaticky vybrat blok stránky nebo ruční výřez s 8× lupou."
+  },
+  "welcomeStep3Title": {
+    "message": "Klikněte na Spustit nahrávání a na konci na Zastavit a uložit"
+  },
+  "welcomeStep3Desc": {
+    "message": "Popup můžete zavřít nebo přepnout na jinou kartu. Po skončení klikněte na Zastavit a uložit a soubor se stáhne."
+  },
+  "welcomeShortcutsTitle": {
+    "message": "Klávesové zkratky"
+  },
+  "welcomeShortcutsIntro": {
+    "message": "Ovládejte nahrávání z klávesnice v aktivním okně Chrome, aniž byste museli otevírat okno rozšíření."
+  },
+  "welcomeShortcutsCurrent": {
+    "message": "Aktuální nastavení"
+  },
+  "welcomeShortcutsConfigure": {
+    "message": "Nastavení a úprava zkratek"
+  },
+  "welcomeShortcutsHelp": {
+    "message": "Zkratky můžete kdykoli přiřadit nebo upravit v nastavení Chrome — zkopírujte adresu níže do adresního řádku:"
+  },
+  "welcomePrivacyTitle": {
+    "message": "100 % lokálně a s respektem k soukromí"
+  },
+  "welcomePrivacyPointLocal": {
+    "message": "Vše běží 100 % lokálně v prohlížeči — žádný cloud, účty ani sledování."
+  },
+  "welcomePrivacyPointPerms": {
+    "message": "Minimální oprávnění jen pro jednu kartu; nikdy nečte ostatní weby ani historii."
+  },
+  "welcomePrivacyPointFormats": {
+    "message": "Lokální export do MP3, MP4, WebM i WAV s obnovou po pádu a bez časových limitů."
+  },
+  "welcomeDrmNote": {
+    "message": "Poznámka: Systémové stránky prohlížeče (chrome://) a přísně chráněný DRM obsah nelze z bezpečnostních důvodů prohlížeče nahrávat."
+  }
+}

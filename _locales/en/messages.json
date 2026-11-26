@@ -1,0 +1,515 @@
+{
+  "extName": {
+    "message": "WebTabRec — Tab Audio & Video Recorder"
+  },
+  "extDescription": {
+    "message": "Free, open-source recorder for capturing audio, video, or both from a single tab 100% locally. No cloud, no time limits."
+  },
+  "fallbackTabTitle": {
+    "message": "tab"
+  },
+  "actionTitle": {
+    "message": "Open WebTabRec"
+  },
+  "actionTitleRecording": {
+    "message": "WebTabRec — Recording: $TITLE$",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "Lecture — Intro"
+      }
+    }
+  },
+  "actionTitlePaused": {
+    "message": "WebTabRec — Paused: $TITLE$",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "Lecture — Intro"
+      }
+    }
+  },
+  "cmdToggleRecording": {
+    "message": "Start or stop tab recording"
+  },
+  "cmdTogglePause": {
+    "message": "Pause or resume tab recording"
+  },
+  "cmdOpenPopup": {
+    "message": "Open WebTabRec popup"
+  },
+  "shortcutNotSet": {
+    "message": "Not set"
+  },
+  "languageAuto": {
+    "message": "Auto (Browser language)"
+  },
+  "languageAutoShort": {
+    "message": "Auto"
+  },
+  "languageAutoMenu": {
+    "message": "Auto (Browser)"
+  },
+  "labelActiveTab": {
+    "message": "Active tab"
+  },
+  "labelRecordedTab": {
+    "message": "Recorded tab"
+  },
+  "btnGoToRecordedTab": {
+    "message": "Go to tab"
+  },
+  "labelMode": {
+    "message": "What to record"
+  },
+  "modeAudio": {
+    "message": "Audio"
+  },
+  "modeAudioSub": {
+    "message": "Sound only"
+  },
+  "modeVideo": {
+    "message": "Video"
+  },
+  "modeVideoSub": {
+    "message": "Picture only"
+  },
+  "modeBoth": {
+    "message": "Both"
+  },
+  "modeBothSub": {
+    "message": "Video + Audio"
+  },
+  "labelFormat": {
+    "message": "File format"
+  },
+  "labelVideoFormat": {
+    "message": "Video format"
+  },
+  "labelAudioFormat": {
+    "message": "Audio format"
+  },
+  "formatMp3": {
+    "message": "MP3 (Universal · 192 kbps)"
+  },
+  "formatWebmRecommended": {
+    "message": "WebM (Recommended)"
+  },
+  "formatWebmVideo": {
+    "message": "WebM (VP9 · crash recovery)"
+  },
+  "formatWebmAudio": {
+    "message": "WebM (Opus · smallest file)"
+  },
+  "formatMp4": {
+    "message": "MP4 (H.264)"
+  },
+  "formatMp4Unsupported": {
+    "message": "MP4 (Not supported in this browser)"
+  },
+  "formatWav": {
+    "message": "WAV (Uncompressed audio)"
+  },
+  "formatShortMp3": {
+    "message": "MP3 · 192 kbps"
+  },
+  "formatShortWebmAudio": {
+    "message": "WebM (Opus)"
+  },
+  "formatShortWav": {
+    "message": "WAV (PCM)"
+  },
+  "formatShortMp4": {
+    "message": "MP4"
+  },
+  "formatShortWebmVideo": {
+    "message": "WebM"
+  },
+  "formatHintMp3": {
+    "message": "Best compatibility (cars, players, mobile, PowerPoint). Compact size (~1.4 MB/min) with crash recovery."
+  },
+  "formatHintMp4": {
+    "message": "Best for video: smooth playback, accurate colors, and wide compatibility (Windows, Mac, mobile, editors). No crash recovery."
+  },
+  "formatHintWebmVideo": {
+    "message": "Smaller files with crash recovery — great for long recordings and web playback. Choose MP4 for sharing or editing."
+  },
+  "formatHintWebmAudio": {
+    "message": "Smallest audio files: crisp Opus sound (~1 MB/min) with crash recovery. Choose MP3 for universal playback."
+  },
+  "formatHintWav": {
+    "message": "Lossless audio for editing in audio tools — much larger files (~10 MB/min)."
+  },
+  "labelVideoQuality": {
+    "message": "Video quality"
+  },
+  "qualityStandard": {
+    "message": "Standard (smaller file)"
+  },
+  "qualityHigh": {
+    "message": "High (sharp details & colors)"
+  },
+  "qualityShortStandard": {
+    "message": "Standard quality"
+  },
+  "qualityShortHigh": {
+    "message": "High quality"
+  },
+  "qualityHintStandard": {
+    "message": "Balanced quality up to 1080p — bitrate adapts automatically to resolution for smaller files."
+  },
+  "qualityHintHigh": {
+    "message": "Native resolution for sharp text and colors — bitrate adapts automatically to frame or region size."
+  },
+  "labelKeepAudio": {
+    "message": "Keep hearing tab audio"
+  },
+  "speakerMonitor": {
+    "message": "Monitor"
+  },
+  "speakerMuted": {
+    "message": "Muted"
+  },
+  "speakerTooltip": {
+    "message": "You will hear tab sound through your speakers while recording. Click to mute live playback (audio is still recorded)."
+  },
+  "speakerAriaMonitor": {
+    "message": "Tab audio monitoring enabled. Click to mute live playback."
+  },
+  "speakerAriaMuted": {
+    "message": "Tab audio monitoring muted. Click to hear tab audio."
+  },
+  "btnSettingsAria": {
+    "message": "Default format & quality settings"
+  },
+  "btnSettingsBack": {
+    "message": "Back"
+  },
+  "settingsTitle": {
+    "message": "Default Settings"
+  },
+  "settingsSectionVideo": {
+    "message": "Video & Both"
+  },
+  "settingsSectionAudio": {
+    "message": "Audio only"
+  },
+  "configEdit": {
+    "message": "Edit"
+  },
+  "configSummaryAria": {
+    "message": "Active recording configuration: $SUMMARY$. Click to edit in settings.",
+    "placeholders": {
+      "summary": {
+        "content": "$1",
+        "example": "MP4 · High quality"
+      }
+    }
+  },
+  "btnMutePassthrough": {
+    "message": "Mute live playback"
+  },
+  "btnUnmutePassthrough": {
+    "message": "Unmute live playback"
+  },
+  "labelLanguage": {
+    "message": "Language"
+  },
+  "labelDuration": {
+    "message": "Duration"
+  },
+  "labelSize": {
+    "message": "Size"
+  },
+  "ariaAudioMeter": {
+    "message": "Live tab audio level"
+  },
+  "btnStart": {
+    "message": "Start Recording"
+  },
+  "btnStartMenuAria": {
+    "message": "More recording options"
+  },
+  "menuRecordFullTab": {
+    "message": "Full tab"
+  },
+  "menuRecordSmartRegion": {
+    "message": "Select page block (auto)…"
+  },
+  "menuRecordSmartRegionSub": {
+    "message": "Hover to pick a block, scroll wheel to change level"
+  },
+  "menuRecordRegion": {
+    "message": "Select region manually (loupe)…"
+  },
+  "menuRecordRegionSub": {
+    "message": "Drag freely with the 8× pixel magnifier loupe"
+  },
+  "regionModeSmart": {
+    "message": "Blocks"
+  },
+  "regionModeManual": {
+    "message": "Manual"
+  },
+  "regionHintSmart": {
+    "message": "Click to select block · Wheel / ↑↓: change level · Drag: manual · Esc: cancel"
+  },
+  "regionHintDrag": {
+    "message": "Click and drag to select area · Press Esc to cancel"
+  },
+  "regionHelpToggleAria": {
+    "message": "Show selection tips"
+  },
+  "regionCoachTitle": {
+    "message": "Quick tip: Smart block selection"
+  },
+  "regionCoachStepHover": {
+    "message": "Hover over any video, card, table, or section to highlight it automatically."
+  },
+  "regionCoachStepWheel": {
+    "message": "Scroll the mouse wheel or press ↑ / ↓ to expand or narrow the block level."
+  },
+  "regionCoachStepClick": {
+    "message": "Click to lock the block (or drag right away for manual selection with loupe)."
+  },
+  "regionCoachGotIt": {
+    "message": "Got it"
+  },
+  "regionBtnWider": {
+    "message": "▲ Wider"
+  },
+  "regionBtnNarrower": {
+    "message": "▼ Narrower"
+  },
+  "regionBtnWiderTitle": {
+    "message": "Expand to parent block (PageUp or [)"
+  },
+  "regionBtnNarrowerTitle": {
+    "message": "Narrow to inner block (PageDown or ])"
+  },
+  "regionElVideo": {
+    "message": "Video"
+  },
+  "regionElFrame": {
+    "message": "Frame"
+  },
+  "regionElCanvas": {
+    "message": "Canvas"
+  },
+  "regionElImage": {
+    "message": "Image"
+  },
+  "regionElTable": {
+    "message": "Table"
+  },
+  "regionElCode": {
+    "message": "Code"
+  },
+  "regionElDialog": {
+    "message": "Dialog"
+  },
+  "regionElArticle": {
+    "message": "Article"
+  },
+  "regionElSection": {
+    "message": "Section"
+  },
+  "regionElBlock": {
+    "message": "Block"
+  },
+  "regionBtnStart": {
+    "message": "Start Recording"
+  },
+  "regionBtnReselect": {
+    "message": "Reselect"
+  },
+  "regionBtnCancel": {
+    "message": "Cancel"
+  },
+  "regionTooSmall": {
+    "message": "Selected area is too small (minimum 32 × 32 px). Drag a larger region."
+  },
+  "labelRegionActive": {
+    "message": "Page region ($SIZE$)",
+    "placeholders": {
+      "size": {
+        "content": "$1",
+        "example": "1280 × 720 px"
+      }
+    }
+  },
+  "btnPause": {
+    "message": "Pause"
+  },
+  "btnResume": {
+    "message": "Resume"
+  },
+  "btnStopSave": {
+    "message": "Stop & Save"
+  },
+  "btnDownloadAgain": {
+    "message": "Download again"
+  },
+  "btnDismissExport": {
+    "message": "Done"
+  },
+  "btnCloseError": {
+    "message": "Dismiss"
+  },
+  "btnHelp": {
+    "message": "Quick guide & shortcuts"
+  },
+  "footerPrivacy": {
+    "message": "100% Local · No Cloud"
+  },
+  "statusStarting": {
+    "message": "Starting recording..."
+  },
+  "statusRecording": {
+    "message": "Recording: $TITLE$",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "Lecture — Intro"
+      }
+    }
+  },
+  "statusPaused": {
+    "message": "Paused: $TITLE$",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "Lecture — Intro"
+      }
+    }
+  },
+  "statusSaving": {
+    "message": "Preparing download..."
+  },
+  "statusDownloadStarted": {
+    "message": "Download started: $FILENAME$",
+    "placeholders": {
+      "filename": {
+        "content": "$1",
+        "example": "webtabrec_lecture_2026-11-25_14-30-00.webm"
+      }
+    }
+  },
+  "statusTabClosedSaved": {
+    "message": "Recorded tab closed — download started automatically."
+  },
+  "statusFormatFallback": {
+    "message": "Selected format was unavailable — recording in WebM."
+  },
+  "recoveryTitle": {
+    "message": "Unfinished recording found"
+  },
+  "btnRecover": {
+    "message": "Download"
+  },
+  "btnDiscard": {
+    "message": "Discard"
+  },
+  "errUnsupportedTab": {
+    "message": "Browser system pages (chrome:// or Web Store) cannot be recorded. Switch to a regular webpage and try again."
+  },
+  "errInjectionFailed": {
+    "message": "Cannot open the region selector on this page. Check extension permissions for local files or record the full tab."
+  },
+  "errNotInvoked": {
+    "message": "Click the WebTabRec icon in the toolbar on this tab to allow recording."
+  },
+  "errTabAlreadyCaptured": {
+    "message": "This tab is already being recorded or shared by another tool."
+  },
+  "errCaptureFailed": {
+    "message": "Could not start tab capture. Reload the tab and try again."
+  },
+  "errAudioContextFailed": {
+    "message": "Could not initialize local audio playback. Try clicking the page or reloading the tab."
+  },
+  "errQuotaExceeded": {
+    "message": "Browser storage is full. Recording was stopped and export was attempted."
+  },
+  "errQuotaLowPrestart": {
+    "message": "Not enough free browser storage space to start recording. Free up space and try again."
+  },
+  "errWavSizeLimit": {
+    "message": "WAV file size limit reached (~2 GB). Recording was safely stopped and prepared for download."
+  },
+  "errWriteFailed": {
+    "message": "Failed to save recording data to local browser storage. Reload the page or free up space and try again."
+  },
+  "errSaveFailed": {
+    "message": "Could not assemble or save the recording file. Dismiss this message and try recording again."
+  },
+  "errRecoveryFailed": {
+    "message": "Could not recover the interrupted recording. You can try again or discard it."
+  },
+  "errOffscreenLost": {
+    "message": "Background recorder stopped unexpectedly. Reopen the popup to check for recoverable data."
+  },
+  "btnCopyShortcuts": {
+    "message": "Copy shortcuts URL"
+  },
+  "btnCopied": {
+    "message": "Copied"
+  },
+  "welcomeTitle": {
+    "message": "Welcome to WebTabRec"
+  },
+  "welcomeSubtitle": {
+    "message": "Record audio, video, or both from a single regular browser tab — 100% locally and free."
+  },
+  "welcomeSectionStart": {
+    "message": "Get started in 3 steps"
+  },
+  "welcomeStep1Title": {
+    "message": "Open or pin WebTabRec on your toolbar"
+  },
+  "welcomeStep1Desc": {
+    "message": "Click the puzzle icon in the top-right corner to open WebTabRec anytime, or pin it for one-click access."
+  },
+  "welcomeStep2Title": {
+    "message": "Switch to a regular webpage and pick a mode"
+  },
+  "welcomeStep2Desc": {
+    "message": "Open the tab you want to record and choose Audio, Video, or Both. Use the arrow next to Start Recording to pick a page block automatically or drag a manual region with the 8× loupe."
+  },
+  "welcomeStep3Title": {
+    "message": "Click Start Recording, then Stop & Save"
+  },
+  "welcomeStep3Desc": {
+    "message": "You can close the popup or switch tabs anytime. When finished, click Stop & Save to download your file locally."
+  },
+  "welcomeShortcutsTitle": {
+    "message": "Keyboard shortcuts"
+  },
+  "welcomeShortcutsIntro": {
+    "message": "Control recording directly from your keyboard in the active Chrome window without opening the popup."
+  },
+  "welcomeShortcutsCurrent": {
+    "message": "Current shortcuts"
+  },
+  "welcomeShortcutsConfigure": {
+    "message": "Set or change shortcuts"
+  },
+  "welcomeShortcutsHelp": {
+    "message": "Chrome lets you assign or customize extension shortcuts at the address below — copy and paste it into the address bar:"
+  },
+  "welcomePrivacyTitle": {
+    "message": "100% Local & Privacy-First"
+  },
+  "welcomePrivacyPointLocal": {
+    "message": "Everything runs 100% inside your browser — zero cloud uploads, accounts, or tracking."
+  },
+  "welcomePrivacyPointPerms": {
+    "message": "Minimal permissions scoped to a single tab; never reads your other tabs or browsing history."
+  },
+  "welcomePrivacyPointFormats": {
+    "message": "Export MP3, MP4, WebM, or WAV locally with crash recovery and no time limits."
+  },
+  "welcomeDrmNote": {
+    "message": "Note: Browser system pages (chrome://) and strict DRM streaming sites cannot be recorded due to browser security restrictions."
+  }
+}

@@ -1,0 +1,27 @@
+# OS and editor metadata
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Dependencies & build artifacts
+node_modules/
+dist/
+build/
+*.zip
+*.crx
+*.pem
+
+# Environment & local secrets
+.env
+.env.*
+*.local
+
+# Temporary logs & test outputs
+*.log
+coverage/
+tmp/

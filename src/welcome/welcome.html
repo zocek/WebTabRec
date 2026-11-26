@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>WebTabRec</title>
+  <link rel="stylesheet" href="welcome.css">
+</head>
+<body>
+  <div class="welcome-shell">
+    <header class="welcome-header">
+      <div class="brand">
+        <img src="../../assets/icons/icon-48.png" alt="" class="brand-icon" width="36" height="36">
+        <span class="brand-name">WebTabRec</span>
+        <span class="header-pill" data-i18n="footerPrivacy"></span>
+      </div>
+
+      <div class="locale-wrap">
+        <button
+          type="button"
+          id="localeBtn"
+          class="locale-pill"
+          popovertarget="localeMenu"
+          aria-haspopup="menu"
+          aria-expanded="false"
+          data-i18n-aria-label="labelLanguage"
+        >
+          <span id="localeFlag" class="locale-flag" aria-hidden="true"></span>
+          <span id="localeCode" class="locale-code">Auto</span>
+          <svg class="pill-chevron" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true">
+            <path d="M4.2 6.2a.75.75 0 0 1 1.06 0L8 8.94l2.74-2.74a.75.75 0 1 1 1.06 1.06l-3.27 3.27a.75.75 0 0 1-1.06 0L4.2 7.26a.75.75 0 0 1 0-1.06z"></path>
+          </svg>
+        </button>
+        <div
+          id="localeMenu"
+          class="popover-menu locale-menu"
+          popover="auto"
+          role="menu"
+          data-open="false"
+          data-i18n-aria-label="labelLanguage"
+        ></div>
+      </div>
+    </header>
+
+    <main class="welcome-main">
+      <section class="hero">
+        <h1 class="hero-title" data-i18n="welcomeTitle"></h1>
+        <p class="hero-subtitle" data-i18n="welcomeSubtitle"></p>
+      </section>
+
+      <section class="section-block" aria-labelledby="sectionStartHeading">
+        <div class="section-label-row">
+          <svg class="section-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          <h2 id="sectionStartHeading" class="section-label" data-i18n="welcomeSectionStart"></h2>
+        </div>
+
+        <ol class="steps-grid">
+          <li class="card step-card">
+            <div class="step-top">
+              <span class="step-num" aria-hidden="true">1</span>
+              <span class="step-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2l3 3-3 3"></path>
+                  <path d="M19 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h9"></path>
+                </svg>
+              </span>
+            </div>
+            <h3 class="card-title" data-i18n="welcomeStep1Title"></h3>
+            <p class="card-body" data-i18n="welcomeStep1Desc"></p>
+          </li>
+
+          <li class="card step-card">
+            <div class="step-top">
+              <span class="step-num" aria-hidden="true">2</span>
+              <span class="step-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="14" rx="2"></rect>
+                  <line x1="8" y1="21" x2="16" y2="21"></line>
+                  <line x1="12" y1="18" x2="12" y2="21"></line>
+                </svg>
+              </span>
+            </div>
+            <h3 class="card-title" data-i18n="welcomeStep2Title"></h3>
+            <p class="card-body" data-i18n="welcomeStep2Desc"></p>
+          </li>
+
+          <li class="card step-card">
+            <div class="step-top">
+              <span class="step-num" aria-hidden="true">3</span>
+              <span class="step-icon step-icon-record" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9"></circle>
+                  <circle cx="12" cy="12" r="3.5" fill="currentColor"></circle>
+                </svg>
+              </span>
+            </div>
+            <h3 class="card-title" data-i18n="welcomeStep3Title"></h3>
+            <p class="card-body" data-i18n="welcomeStep3Desc"></p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="info-grid">
+        <article class="card shortcuts-card" aria-labelledby="shortcutsHeading">
+          <div class="card-heading-row">
+            <span class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                <path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M6 12h.01M10 12h.01M14 12h.01M18 12h.01M8 16h8"></path>
+              </svg>
+            </span>
+            <h2 id="shortcutsHeading" class="card-title" data-i18n="welcomeShortcutsTitle"></h2>
+          </div>
+
+          <p class="card-body" data-i18n="welcomeShortcutsIntro"></p>
+
+          <div class="sub-block">
+            <h3 class="sub-label" data-i18n="welcomeShortcutsCurrent"></h3>
+            <ul id="shortcutsList" class="shortcuts-list"></ul>
+          </div>
+
+          <div class="sub-block sub-block-divider">
+            <h3 class="sub-label" data-i18n="welcomeShortcutsConfigure"></h3>
+            <p class="sub-help" data-i18n="welcomeShortcutsHelp"></p>
+            <div class="shortcuts-url-row">
+              <code id="shortcutsUrl" class="shortcuts-url">chrome://extensions/shortcuts</code>
+              <button
+                type="button"
+                id="btnCopyShortcuts"
+                class="btn-copy"
+                data-i18n-aria-label="btnCopyShortcuts"
+                data-i18n-title="btnCopyShortcuts"
+                data-copied="false"
+              >
+                <svg class="icon-copy" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="9" y="9" width="13" height="13" rx="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <svg class="icon-check" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span class="copy-feedback" data-i18n="btnCopied"></span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card privacy-card" aria-labelledby="privacyHeading">
+          <div class="card-heading-row">
+            <span class="card-icon card-icon-success" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <polyline points="9 12 11 14 15 10"></polyline>
+              </svg>
+            </span>
+            <h2 id="privacyHeading" class="card-title" data-i18n="welcomePrivacyTitle"></h2>
+          </div>
+
+          <p class="card-body" data-i18n="extDescription"></p>
+
+          <ul class="feature-list">
+            <li class="feature-item">
+              <span class="feature-dot" aria-hidden="true">
+                <svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor">
+                  <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 1 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"></path>
+                </svg>
+              </span>
+              <span data-i18n="welcomePrivacyPointLocal"></span>
+            </li>
+            <li class="feature-item">
+              <span class="feature-dot" aria-hidden="true">
+                <svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor">
+                  <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 1 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"></path>
+                </svg>
+              </span>
+              <span data-i18n="welcomePrivacyPointPerms"></span>
+            </li>
+            <li class="feature-item">
+              <span class="feature-dot" aria-hidden="true">
+                <svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor">
+                  <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 1 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"></path>
+                </svg>
+              </span>
+              <span data-i18n="welcomePrivacyPointFormats"></span>
+            </li>
+          </ul>
+
+          <div class="info-callout">
+            <svg class="info-callout-icon" viewBox="0 0 16 16" width="15" height="15" fill="currentColor" aria-hidden="true">
+              <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8.75-3.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.25 7.5a.75.75 0 0 1 1.5 0v4a.75.75 0 0 1-1.5 0v-4Z"></path>
+            </svg>
+            <p class="info-callout-text" data-i18n="welcomeDrmNote"></p>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="welcome.js"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Validate, Test & Package (Node 22)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v4.3.0
+        with:
+          node-version: 22
+
+      - name: Validate locales and manifest
+        run: npm run validate:locales
+
+      - name: Run unit and E2E test suite
+        run: npm test
+
+      - name: Run Chrome mock harness self-tests
+        run: node --test tests/e2e/helpers/chrome-mock.test.js
+
+      - name: Verify MP3 encoder acoustic round-trip with ffmpeg
+        run: |
+          node -e "
+            import fs from 'node:fs';
+            import { execFileSync } from 'node:child_process';
+            import { createMp3Encoder } from './src/offscreen/mp3-encoder.js';
+            const sr = 48000;
+            const samples = sr;
+            const pcm = new Int16Array(samples * 2);
+            for (let i = 0; i < samples; i++) {
+              const v = Math.round(Math.sin(2 * Math.PI * 1000 * i / sr) * 16000);
+              pcm[i * 2] = v;
+              pcm[i * 2 + 1] = v;
+            }
+            const enc = createMp3Encoder({ sampleRate: sr, channels: 2, bitrateKbps: 192 });
+            const body = enc.encodeInterleavedPcm16(pcm.buffer);
+            const tail = enc.flush();
+            const mp3 = Buffer.concat([Buffer.from(body), Buffer.from(tail)]);
+            fs.writeFileSync('/tmp/ci-test.mp3', mp3);
+            const probe = execFileSync('ffprobe', ['-v', 'error', '-show_entries', 'stream=codec_name,sample_rate,channels', '-of', 'default=noprint_wrappers=1', '/tmp/ci-test.mp3'], { encoding: 'utf8' });
+            console.log(probe.trim());
+            if (!probe.includes('codec_name=mp3') || !probe.includes('sample_rate=48000') || !probe.includes('channels=2')) {
+              throw new Error('Unexpected ffprobe stream metadata: ' + probe);
+            }
+            execFileSync('ffmpeg', ['-v', 'error', '-i', '/tmp/ci-test.mp3', '-f', 'null', '-']);
+            console.log('OK: ffmpeg decoded MP3 cleanly with 0 errors (' + mp3.length + ' bytes)');
+          "
+
+      - name: Build and audit release ZIP package
+        run: npm run package
+
+      - name: Upload release ZIP artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: webtabrec-release-zip
+          path: dist/webtabrec-v*.zip
+          if-no-files-found: error
+          retention-days: 14

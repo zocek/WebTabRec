@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>WebTabRec</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-shell">
+    <header class="popup-header">
+      <div class="brand">
+        <img src="../../assets/icons/icon-32.png" alt="" class="brand-icon" width="24" height="24">
+        <h1 class="brand-name">WebTabRec</h1>
+      </div>
+
+      <div class="header-actions">
+        <div class="locale-wrap">
+          <button
+            type="button"
+            id="localeBtn"
+            class="locale-pill"
+            popovertarget="localeMenu"
+            aria-haspopup="menu"
+            aria-expanded="false"
+            data-i18n-aria-label="labelLanguage"
+          >
+            <span id="localeFlag" class="locale-flag" aria-hidden="true"></span>
+            <span id="localeCode" class="locale-code">Auto</span>
+            <svg class="pill-chevron" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true">
+              <path d="M4.2 6.2a.75.75 0 0 1 1.06 0L8 8.94l2.74-2.74a.75.75 0 1 1 1.06 1.06l-3.27 3.27a.75.75 0 0 1-1.06 0L4.2 7.26a.75.75 0 0 1 0-1.06z"></path>
+            </svg>
+          </button>
+          <div
+            id="localeMenu"
+            class="popover-menu locale-menu"
+            popover="auto"
+            role="menu"
+            data-open="false"
+            data-i18n-aria-label="labelLanguage"
+          ></div>
+        </div>
+
+        <button
+          type="button"
+          id="btnSettings"
+          class="icon-btn"
+          data-i18n-aria-label="btnSettingsAria"
+          data-i18n-title="btnSettingsAria"
+        >
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main id="popupMain" class="popup-main">
+      <div id="mainView" class="view-pane">
+        <!-- RECOVERY BANNER -->
+        <section id="recoverySection" class="card card-warning" hidden>
+          <div class="card-header-row">
+            <span class="badge-icon badge-warning" aria-hidden="true">!</span>
+            <h2 id="recoveryHeading" class="section-heading" data-i18n="recoveryTitle"></h2>
+          </div>
+          <p id="recoveryMeta" class="meta-summary"></p>
+          <div class="action-row">
+            <button type="button" id="btnRecover" class="btn btn-warning" data-i18n="btnRecover"></button>
+            <button type="button" id="btnDiscard" class="btn btn-secondary" data-i18n="btnDiscard"></button>
+          </div>
+        </section>
+
+        <!-- ERROR BANNER -->
+        <section id="errorSection" class="card card-error" role="alert" hidden>
+          <div class="card-header-row">
+            <span class="badge-icon badge-error" aria-hidden="true">!</span>
+            <p id="errorMessage" class="error-message"></p>
+          </div>
+          <div class="action-row">
+            <button type="button" id="btnDiscardError" class="btn btn-secondary" data-i18n="btnDiscard" hidden></button>
+            <button type="button" id="btnCloseError" class="btn btn-secondary" data-i18n="btnCloseError"></button>
+          </div>
+        </section>
+
+        <!-- IDLE / SETUP SECTION -->
+        <section id="setupSection" class="setup-section" hidden>
+          <fieldset id="modeGroup" class="mode-fieldset">
+            <legend class="field-label" data-i18n="labelMode"></legend>
+            <div class="mode-grid">
+              <label class="mode-card" for="modeAudio" data-mode="audio">
+                <input id="modeAudio" type="radio" name="mode" value="audio" class="mode-radio">
+                <span class="mode-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 18V5l12-2v13"></path>
+                    <circle cx="6" cy="18" r="3"></circle>
+                    <circle cx="18" cy="16" r="3"></circle>
+                  </svg>
+                </span>
+                <span class="mode-title" data-i18n="modeAudio"></span>
+                <span class="mode-sub" data-i18n="modeAudioSub"></span>
+              </label>
+
+              <label class="mode-card" for="modeVideo" data-mode="video">
+                <input id="modeVideo" type="radio" name="mode" value="video" class="mode-radio">
+                <span class="mode-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="5" width="14" height="14" rx="2"></rect>
+                    <polygon points="16 10 22 7 22 17 16 14 16 10"></polygon>
+                  </svg>
+                </span>
+                <span class="mode-title" data-i18n="modeVideo"></span>
+                <span class="mode-sub" data-i18n="modeVideoSub"></span>
+              </label>
+
+              <label class="mode-card" for="modeBoth" data-mode="both">
+                <input id="modeBoth" type="radio" name="mode" value="both" class="mode-radio">
+                <span class="mode-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="4" width="20" height="14" rx="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="18" x2="12" y2="21"></line>
+                  </svg>
+                </span>
+                <span class="mode-title" data-i18n="modeBoth"></span>
+                <span class="mode-sub" data-i18n="modeBothSub"></span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="quick-bar">
+            <button type="button" id="configPill" class="config-pill">
+              <span class="config-pill-leading" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="4" y1="21" x2="4" y2="14"></line>
+                  <line x1="4" y1="10" x2="4" y2="3"></line>
+                  <line x1="12" y1="21" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12" y2="3"></line>
+                  <line x1="20" y1="21" x2="20" y2="16"></line>
+                  <line x1="20" y1="12" x2="20" y2="3"></line>
+                  <line x1="1" y1="14" x2="7" y2="14"></line>
+                  <line x1="9" y1="8" x2="15" y2="8"></line>
+                  <line x1="17" y1="16" x2="23" y2="16"></line>
+                </svg>
+              </span>
+              <span id="configSummaryText" class="config-summary-text"></span>
+              <span class="config-edit-badge" data-i18n="configEdit"></span>
+            </button>
+
+            <div id="keepAudioGroup" class="speaker-wrap">
+              <button
+                type="button"
+                id="keepAudioToggle"
+                class="speaker-pill"
+                aria-pressed="true"
+                aria-describedby="speakerTooltip"
+                interestfor="speakerTooltip"
+                data-keep-audio="true"
+              >
+                <svg class="speaker-icon speaker-icon-on" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                  <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+                </svg>
+                <svg class="speaker-icon speaker-icon-off" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                  <line x1="23" y1="9" x2="17" y2="15"></line>
+                  <line x1="17" y1="9" x2="23" y2="15"></line>
+                </svg>
+                <span id="keepAudioLabel" class="speaker-label" data-i18n="speakerMonitor"></span>
+              </button>
+              <div
+                id="speakerTooltip"
+                class="tooltip-popover"
+                popover="hint"
+                role="tooltip"
+                data-open="false"
+                data-i18n="speakerTooltip"
+              ></div>
+            </div>
+          </div>
+
+          <div class="split-btn-wrap">
+            <button type="button" id="btnStart" class="btn btn-record split-main">
+              <span class="rec-dot" aria-hidden="true"></span>
+              <span data-i18n="btnStart"></span>
+            </button>
+            <button
+              type="button"
+              id="btnStartMenuToggle"
+              class="btn btn-record split-chevron"
+              popovertarget="startModeMenu"
+              aria-haspopup="menu"
+              aria-expanded="false"
+              data-i18n-aria-label="btnStartMenuAria"
+              data-i18n-title="btnStartMenuAria"
+            >
+              <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true">
+                <path d="M4.2 6.2a.75.75 0 0 1 1.06 0L8 8.94l2.74-2.74a.75.75 0 1 1 1.06 1.06l-3.27 3.27a.75.75 0 0 1-1.06 0L4.2 7.26a.75.75 0 0 1 0-1.06z"></path>
+              </svg>
+            </button>
+            <div
+              id="startModeMenu"
+              class="popover-menu split-menu"
+              popover="auto"
+              role="menu"
+              data-open="false"
+            >
+              <button
+                type="button"
+                id="menuRecordFullTab"
+                class="split-menu-item"
+                role="menuitem"
+                data-i18n="menuRecordFullTab"
+              ></button>
+              <button
+                type="button"
+                id="menuRecordSmartRegion"
+                class="split-menu-item"
+                role="menuitem"
+                data-i18n-title="menuRecordSmartRegionSub"
+              >
+                <span class="split-menu-title" data-i18n="menuRecordSmartRegion"></span>
+                <span class="split-menu-sub" data-i18n="menuRecordSmartRegionSub"></span>
+              </button>
+              <button
+                type="button"
+                id="menuRecordRegion"
+                class="split-menu-item"
+                role="menuitem"
+                data-i18n-title="menuRecordRegionSub"
+              >
+                <span class="split-menu-title" data-i18n="menuRecordRegion"></span>
+                <span class="split-menu-sub" data-i18n="menuRecordRegionSub"></span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ACTIVE / SELECTING / STARTING / SAVING STATUS SECTION -->
+        <section id="statusSection" class="card status-card" hidden>
+          <div class="status-header-row">
+            <span id="statusIndicator" class="status-indicator" aria-hidden="true"></span>
+            <h2 id="statusHeading" class="status-heading" aria-live="polite"></h2>
+          </div>
+
+          <p id="statusHint" class="status-hint" hidden></p>
+
+          <div id="recordedTabRow" class="recorded-tab-row" hidden>
+            <div class="recorded-tab-meta">
+              <span class="meta-label" data-i18n="labelRecordedTab"></span>
+              <span id="recordedTabTitle" class="recorded-tab-title"></span>
+            </div>
+            <button type="button" id="btnGoToRecordedTab" class="btn-link" data-i18n="btnGoToRecordedTab" hidden></button>
+          </div>
+
+          <div id="regionBadge" class="region-badge" hidden>
+            <span id="regionBadgeText"></span>
+          </div>
+
+          <div id="noticeBanner" class="notice-banner" aria-live="polite" hidden>
+            <span id="noticeText"></span>
+          </div>
+
+          <!-- Metrics & meter MUST remain outside aria-live -->
+          <div id="metricsGrid" class="metrics-grid">
+            <div class="metric-cell">
+              <span class="metric-label" data-i18n="labelDuration"></span>
+              <span id="durationValue" class="metric-value">00:00:00</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-label" data-i18n="labelSize"></span>
+              <span id="bytesValue" class="metric-value">0 B</span>
+            </div>
+          </div>
+
+          <div id="audioMeterGroup" class="audio-meter-group" hidden>
+            <div
+              id="audioMeterTrack"
+              class="audio-meter-track"
+              role="progressbar"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuenow="0"
+              data-muted="false"
+              data-i18n-aria-label="ariaAudioMeter"
+            >
+              <div id="audioMeterFill" class="audio-meter-fill"></div>
+            </div>
+          </div>
+
+          <div id="activeControls" class="active-controls">
+            <button
+              type="button"
+              id="btnToggleMute"
+              class="btn btn-secondary btn-full"
+              aria-pressed="false"
+              hidden
+            ></button>
+            <div class="action-row">
+              <button type="button" id="btnPause" class="btn btn-secondary" data-i18n="btnPause"></button>
+              <button type="button" id="btnResume" class="btn btn-primary" data-i18n="btnResume" hidden></button>
+              <button type="button" id="btnStop" class="btn btn-record" data-i18n="btnStopSave"></button>
+            </div>
+          </div>
+          <button
+            type="button"
+            id="btnCancelRegion"
+            class="btn btn-secondary btn-full"
+            data-i18n="regionBtnCancel"
+            hidden
+          ></button>
+        </section>
+
+        <!-- COMPLETED / EXPORT SECTION -->
+        <section id="completedSection" class="card card-success" hidden>
+          <div class="card-header-row">
+            <span class="badge-icon badge-success" aria-hidden="true">✓</span>
+            <h2 id="completedHeading" class="section-heading" aria-live="polite"></h2>
+          </div>
+
+          <div id="completedNotice" class="notice-banner" aria-live="polite" hidden>
+            <span id="completedNoticeText"></span>
+          </div>
+
+          <div class="action-row">
+            <button type="button" id="btnDownloadAgain" class="btn btn-primary" data-i18n="btnDownloadAgain"></button>
+            <button type="button" id="btnDismissExport" class="btn btn-secondary" data-i18n="btnDismissExport"></button>
+          </div>
+        </section>
+      </div>
+
+      <!-- IN-POPUP DEFAULT SETTINGS VIEW -->
+      <section id="settingsView" class="view-pane settings-view" aria-labelledby="settingsHeading" hidden>
+        <div class="settings-header">
+          <button type="button" id="btnSettingsBack" class="btn-back">
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true">
+              <path d="M9.78 12.78a.75.75 0 0 1-1.06 0L4.47 8.53a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 1 1 1.06 1.06L6.06 8l3.72 3.72a.75.75 0 0 1 0 1.06z"></path>
+            </svg>
+            <span data-i18n="btnSettingsBack"></span>
+          </button>
+          <h2 id="settingsHeading" class="settings-title" tabindex="-1" data-i18n="settingsTitle"></h2>
+        </div>
+
+        <div class="settings-tabs" role="tablist" data-i18n-aria-label="settingsTitle">
+          <button
+            type="button"
+            id="tabSettingsVideo"
+            class="settings-tab"
+            role="tab"
+            aria-selected="true"
+            aria-controls="panelSettingsVideo"
+            tabindex="0"
+          >
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="5" width="14" height="14" rx="2"></rect>
+              <polygon points="16 10 22 7 22 17 16 14 16 10"></polygon>
+            </svg>
+            <span data-i18n="settingsSectionVideo"></span>
+          </button>
+          <button
+            type="button"
+            id="tabSettingsAudio"
+            class="settings-tab"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panelSettingsAudio"
+            tabindex="-1"
+          >
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18V5l12-2v13"></path>
+              <circle cx="6" cy="18" r="3"></circle>
+              <circle cx="18" cy="16" r="3"></circle>
+            </svg>
+            <span data-i18n="settingsSectionAudio"></span>
+          </button>
+        </div>
+
+        <div
+          id="panelSettingsVideo"
+          class="settings-group card"
+          role="tabpanel"
+          aria-labelledby="tabSettingsVideo"
+        >
+          <div class="field-group">
+            <label for="videoFormatSelect" class="field-label" data-i18n="labelVideoFormat"></label>
+            <select id="videoFormatSelect" class="select-input" aria-describedby="videoFormatHint"></select>
+            <div id="videoFormatHint" class="info-callout">
+              <svg class="info-callout-icon" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true">
+                <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8.75-3.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.25 7.5a.75.75 0 0 1 1.5 0v4a.75.75 0 0 1-1.5 0v-4Z"></path>
+              </svg>
+              <span id="videoFormatHintText" class="info-callout-text"></span>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="qualitySelect" class="field-label" data-i18n="labelVideoQuality"></label>
+            <select id="qualitySelect" class="select-input" aria-describedby="qualityHint"></select>
+            <div id="qualityHint" class="info-callout">
+              <svg class="info-callout-icon" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true">
+                <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8.75-3.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.25 7.5a.75.75 0 0 1 1.5 0v4a.75.75 0 0 1-1.5 0v-4Z"></path>
+              </svg>
+              <span id="qualityHintText" class="info-callout-text"></span>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="panelSettingsAudio"
+          class="settings-group card"
+          role="tabpanel"
+          aria-labelledby="tabSettingsAudio"
+          hidden
+        >
+          <div class="field-group">
+            <label for="audioFormatSelect" class="field-label" data-i18n="labelAudioFormat"></label>
+            <select id="audioFormatSelect" class="select-input" aria-describedby="audioFormatHint"></select>
+            <div id="audioFormatHint" class="info-callout">
+              <svg class="info-callout-icon" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true">
+                <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8.75-3.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.25 7.5a.75.75 0 0 1 1.5 0v4a.75.75 0 0 1-1.5 0v-4Z"></path>
+              </svg>
+              <span id="audioFormatHintText" class="info-callout-text"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="popup-footer">
+      <button
+        type="button"
+        id="btnHelp"
+        class="btn-help"
+        data-i18n-title="btnHelp"
+        data-i18n-aria-label="btnHelp"
+      >
+        <span class="help-badge" aria-hidden="true">?</span>
+        <span data-i18n="btnHelp"></span>
+      </button>
+      <span id="footerPrivacy" class="footer-privacy" data-i18n="footerPrivacy"></span>
+    </footer>
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

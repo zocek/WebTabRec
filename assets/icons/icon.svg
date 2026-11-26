@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="16" y1="16" x2="112" y2="112" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F87171"/>
+      <stop offset="45%" stop-color="#EF4444"/>
+      <stop offset="100%" stop-color="#B91C1C"/>
+    </linearGradient>
+    <linearGradient id="tabShine" x1="64" y1="16" x2="64" y2="54" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <!-- Strictly inside 96x96 safe area (16..112) with 16px clean transparent outer margin (alpha=0 outside) -->
+  <rect x="16" y="16" width="96" height="96" rx="24" fill="url(#bgGrad)"/>
+  <rect x="16.75" y="16.75" width="94.5" height="94.5" rx="23.25" stroke="#FFFFFF" stroke-opacity="0.22" stroke-width="1.5"/>
+  <!-- Subtle browser tab header bar -->
+  <path d="M16 40C16 26.7452 26.7452 16 40 16H88C101.255 16 112 26.7452 112 40V42H16V40Z" fill="url(#tabShine)"/>
+  <rect x="30" y="25" width="28" height="6" rx="3" fill="#FFFFFF" fill-opacity="0.45"/>
+  <!-- Outer recording pulse ring -->
+  <circle cx="64" cy="70" r="24" stroke="#FFFFFF" stroke-opacity="0.35" stroke-width="4"/>
+  <!-- Crisp white REC core -->
+  <circle cx="64" cy="70" r="14" fill="#FFFFFF"/>
+</svg>
